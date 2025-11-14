@@ -523,12 +523,12 @@
       </div>
     </div>
 
-    <div class="actions">
-      <button class="btn secondary" type="button" id="reviewBtn">Review</button>
-      <button class="btn primary" type="button" id="submitBtn">Submit</button>
-    </div>
-    <div class="banner">
-      Note: This is a prototype. Verify all doses and eGFR estimates before using clinically.
+<div class="actions">
+  <button class="btn secondary" type="button" id="reviewBtn">Review</button>
+  <button class="btn primary" type="button" id="submitBtn">Submit</button>
+  <button class="btn secondary" type="button" id="downloadPdfBtn">Download PDF</button>
+</div>
+<div class="banner">Note: This is a prototype. Verify all doses and eGFR estimates before using clinically.</div>
     </div>
   </div>
 
@@ -1182,6 +1182,18 @@
 
       return payload;
     }
+// === PDF GENERATION HANDLER ===
+// Later we will replace this with jsPDF or html2pdf.js
+document.addEventListener("DOMContentLoaded", () => {
+  const pdfBtn = document.getElementById("downloadPdfBtn");
+  if (pdfBtn) {
+    pdfBtn.addEventListener("click", () => {
+      const payload = collectPayload();
+      console.log("PDF payload:", payload);
+      alert("PDF generator not yet attached. This button is working.");
+    });
+  }
+});
 
     window.addEventListener("DOMContentLoaded", init);
   </script>
