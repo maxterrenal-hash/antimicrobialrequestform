@@ -5,6 +5,11 @@
   <title>Ospital ng Makati – Antimicrobial Request System</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    .input-error {
+  border-color: var(--osmak-red) !important;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.25) !important;
+}
+
     :root {
       --osmak-green: #009a3e;
       --osmak-green-dark: #007530;
@@ -744,9 +749,65 @@
         });
       });
 
+function validateRequired() {
+  // List required field IDs
+  const requiredFields = [
+    "patientName",
+    "age",
+    "sex",
+    "weight",
+    "hospitalNumber",
+    "ward",
+    "physician",
+    "diagnosis",
+    "scr",
+    "antimicrobialSelect",
+    "dose",
+    "frequency",
+    "duration"
+  ];
+
+  if (currentMode === "pediatric") {
+    requiredFields.push("height");
+  }
+
+  let firstInvalid = null;
+
+  // Clear all old highlights
+  requiredFields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove("input-error");
+  });
+
+  // Validate
+  requiredFields.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const val = el.value?.trim();
+    if (!val) {
+      el.classList.add("input-error");
+      if (!firstInvalid) firstInvalid = el;
+    }
+  });
+
+  if (firstInvalid) {
+    firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+    firstInvalid.focus();
+    alert("Please complete all required fields.");
+    return false;
+  }
+
+  return true;
+}
+
+      
 document.getElementById("submitBtn").addEventListener("click", () => {
-  openReviewModal(); // Always review first
+  if (validateRequired()) {
+    openReviewModal(); // Only open modal if valid
+  }
 });
+
 
       document.getElementById("modalClose").addEventListener("click", closeModal);
       document.getElementById("modalEdit").addEventListener("click", closeModal);
