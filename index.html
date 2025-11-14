@@ -635,18 +635,80 @@
       }
     };
 
-    const DRUG_LISTS = {
-      adult: [
-        { value: "Piperacillin-tazobactam", label: "Piperacillin-tazobactam", type: "monitored" },
-        { value: "Meropenem", label: "Meropenem", type: "restricted" },
-        { value: "Ceftriaxone", label: "Ceftriaxone", type: "monitored" }
-      ],
-      pediatric: [
-        { value: "Ceftriaxone", label: "Ceftriaxone", type: "monitored" },
-        { value: "Piperacillin-tazobactam", label: "Piperacillin-tazobactam", type: "monitored" },
-        { value: "Meropenem", label: "Meropenem", type: "restricted" }
-      ]
-    };
+const DRUG_LISTS = {
+  adult: [
+    // Adult Restricted (alphabetical)
+    { value: "Acyclovir IV", label: "Acyclovir IV", type: "restricted" },
+    { value: "Amikacin", label: "Amikacin", type: "restricted" },
+    { value: "Amphotericin B", label: "Amphotericin B", type: "restricted" },
+    { value: "Aztreonam", label: "Aztreonam", type: "restricted" },
+    { value: "Cefepime", label: "Cefepime", type: "restricted" },
+    { value: "Ceftazidime–Avibactam (NF)", label: "Ceftazidime–Avibactam (NF)", type: "restricted" },
+    { value: "Ceftolozane–Tazobactam (NF)", label: "Ceftolozane–Tazobactam (NF)", type: "restricted" },
+    { value: "Colistin", label: "Colistin", type: "restricted" },
+    { value: "Doripenem", label: "Doripenem", type: "restricted" },
+    { value: "Ertapenem", label: "Ertapenem", type: "restricted" },
+    { value: "Ganciclovir", label: "Ganciclovir", type: "restricted" },
+    { value: "Gentamicin", label: "Gentamicin", type: "restricted" },
+    { value: "Imipenem", label: "Imipenem", type: "restricted" },
+    { value: "Linezolid", label: "Linezolid", type: "restricted" },
+    { value: "Meropenem", label: "Meropenem", type: "restricted" },
+    { value: "Micafungin", label: "Micafungin", type: "restricted" },
+    { value: "Polymyxin B", label: "Polymyxin B", type: "restricted" },
+    { value: "Remdesivir", label: "Remdesivir", type: "restricted" },
+    { value: "Tigecycline", label: "Tigecycline", type: "restricted" },
+    { value: "Valganciclovir oral", label: "Valganciclovir oral", type: "restricted" },
+    { value: "Vancomycin", label: "Vancomycin", type: "restricted" },
+    { value: "Voriconazole", label: "Voriconazole", type: "restricted" },
+
+    // Adult Monitored (alphabetical)
+    { value: "Ceftriaxone", label: "Ceftriaxone", type: "monitored" },
+    { value: "Ceftazidime", label: "Ceftazidime", type: "monitored" },
+    { value: "Ciprofloxacin", label: "Ciprofloxacin", type: "monitored" },
+    { value: "Fluconazole", label: "Fluconazole", type: "monitored" },
+    { value: "Levofloxacin", label: "Levofloxacin", type: "monitored" },
+    { value: "Moxifloxacin", label: "Moxifloxacin", type: "monitored" },
+    { value: "Piperacillin–Tazobactam", label: "Piperacillin–Tazobactam", type: "monitored" }
+  ],
+
+  pediatric: [
+    // Pediatric Restricted (alphabetical)
+    { value: "Acyclovir", label: "Acyclovir", type: "restricted" },
+    { value: "Amphotericin B", label: "Amphotericin B", type: "restricted" },
+    { value: "Aztreonam", label: "Aztreonam", type: "restricted" },
+    { value: "Caspofungin (Echinocandin)", label: "Caspofungin (Echinocandin)", type: "restricted" },
+    { value: "Cefepime", label: "Cefepime", type: "restricted" },
+    { value: "Colistin", label: "Colistin", type: "restricted" },
+    { value: "Ciprofloxacin", label: "Ciprofloxacin", type: "restricted" },
+    { value: "Doripenem", label: "Doripenem", type: "restricted" },
+    { value: "Ertapenem", label: "Ertapenem", type: "restricted" },
+    { value: "Famciclovir", label: "Famciclovir", type: "restricted" },
+    { value: "Flucytosine", label: "Flucytosine", type: "restricted" },
+    { value: "Imipenem", label: "Imipenem", type: "restricted" },
+    { value: "Levofloxacin", label: "Levofloxacin", type: "restricted" },
+    { value: "Meropenem", label: "Meropenem", type: "restricted" },
+    { value: "Micafungin (Echinocandin)", label: "Micafungin (Echinocandin)", type: "restricted" },
+    { value: "Moxifloxacin", label: "Moxifloxacin", type: "restricted" },
+    { value: "Ofloxacin", label: "Ofloxacin", type: "restricted" },
+    { value: "Remdesivir", label: "Remdesivir", type: "restricted" },
+    { value: "Valganciclovir", label: "Valganciclovir", type: "restricted" },
+    { value: "Vancomycin", label: "Vancomycin", type: "restricted" },
+    { value: "Voriconazole", label: "Voriconazole", type: "restricted" },
+
+    // Pediatric Monitored (alphabetical)
+    { value: "Amikacin", label: "Amikacin", type: "monitored" },
+    { value: "Cefotaxime", label: "Cefotaxime", type: "monitored" },
+    { value: "Ceftriaxone", label: "Ceftriaxone", type: "monitored" },
+    { value: "Ceftazidime", label: "Ceftazidime", type: "monitored" },
+    { value: "Clindamycin", label: "Clindamycin", type: "monitored" },
+    { value: "Gentamicin", label: "Gentamicin", type: "monitored" },
+    { value: "Kanamycin", label: "Kanamycin", type: "monitored" },
+    { value: "Neomycin", label: "Neomycin", type: "monitored" },
+    { value: "Piperacillin–Tazobactam", label: "Piperacillin–Tazobactam", type: "monitored" },
+    { value: "Streptomycin", label: "Streptomycin", type: "monitored" },
+    { value: "Tobramycin", label: "Tobramycin", type: "monitored" }
+  ]
+};
 
     let currentMode = "adult";
     let selectedIndication = "";
