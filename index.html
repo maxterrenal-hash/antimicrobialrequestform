@@ -561,6 +561,10 @@
     </div>
   </div>
 
+<script src="adult_monographs.js"></script>
+<script src="pediatric_monographs.js"></script>
+
+  
   <script>
     // === CONFIG ===
     const SCRIPT_URL = "https://script.google.com/macros/s/REPLACE_WITH_YOUR_WEBAPP_URL/exec"; // TODO: replace with your Apps Script URL
@@ -854,53 +858,60 @@ document.getElementById("submitBtn").addEventListener("click", () => {
     }
 
     function onDrugChange() {
-      const sel = document.getElementById("antimicrobialSelect");
-      const val = sel.value;
-      const dosingSection = document.getElementById("dosingSection");
-      const recContent = document.getElementById("recommendedContent");
-      const monographBox = document.getElementById("monographBox");
-      const pediaCalcCard = document.getElementById("pediaCalcCard");
+  const sel = document.getElementById("antimicrobialSelect");
+  const val = sel.value;
+  const dosingSection = document.getElementById("dosingSection");
+  const recContent = document.getElementById("recommendedContent");
+  const monographBox = document.getElementById("monographBox");
+  const pediaCalcCard = document.getElementById("pediaCalcCard");
 
-      if (!val || !DRUG_MONOGRAPHS[val]) {
-        dosingSection.style.display = "none";
-        recContent.textContent = "Select a drug to view standard dose, frequency, duration, and renal notes.";
-        monographBox.innerHTML = "<p>Select an antimicrobial to view its monograph here. Adult and Pediatric content will differ based on the selected mode.</p>";
-        pediaCalcCard.style.display = "none";
-        return;
-      }
+  if (!val) {
+    dosingSection.style.display = "none";
+    recContent.textContent = "Select a drug to view standard dose, frequency, duration, and renal notes.";
+    monographBox.innerHTML = "<p>Select an antimicrobial to view its monograph here. Adult and Pediatric content will differ based on the selected mode.</p>";
+    pediaCalcCard.style.display = "none";
+    return;
+  }
 
-      const m = DRUG_MONOGRAPHS[val][currentMode];
-      dosingSection.style.display = "block";
+  const m = (DRUG_MONOGRAPHS[currentMode] || {})[val] || {};
+  dosingSection.style.display = "block";
 
-      // Recommended dosing panel
-      const parts = [];
-      if (m.dosing) parts.push(`<strong>Dosing:</strong> ${m.dosing}`);
-      if (m.renal) parts.push(`<strong>Renal adjustment:</strong> ${m.renal}`);
-      if (m.duration) parts.push(`<strong>Typical duration:</strong> ${m.duration}`);
-      if (m.warnings) parts.push(`<strong>Warnings:</strong> ${m.warnings}`);
-      if (m.ams) parts.push(`<strong>AMS notes:</strong> ${m.ams}`);
-      recContent.innerHTML = parts.join("<br><br>") || "No data available.";
+  // Recommended dosing panel
+  const parts = [];
+  if (m.dosing) parts.push(`<strong>Dosing:</strong> ${m.dosing}`);
+  if (m.renal) parts.push(`<strong>Renal adjustment:</strong> ${m.renal}`);
+  if (m.duration) parts.push(`<strong>Typical duration:</strong> ${m.duration}`);
+  if (m.warnings) parts.push(`<strong>Warnings:</strong> ${m.warnings}`);
+  if (m.ams) parts.push(`<strong>AMS notes:</strong> ${m.ams}`);
 
-      // Full monograph
-      let html = "";
-      html += `<h3>${val} – ${currentMode === "adult" ? "Adult" : "Pediatric"} Monograph</h3>`;
-      if (m.spectrum) html += `<p><strong>Spectrum:</strong> ${m.spectrum}</p>`;
-      if (m.dosing) html += `<p><strong>Dosing:</strong> ${m.dosing}</p>`;
-      if (m.renal) html += `<p><strong>Renal adjustment:</strong> ${m.renal}</p>`;
-      if (m.hepatic) html += `<p><strong>Hepatic adjustment:</strong> ${m.hepatic}</p>`;
-      if (m.monitoring) html += `<p><strong>Monitoring:</strong> ${m.monitoring}</p>`;
-      if (m.warnings) html += `<p><strong>Warnings:</strong> ${m.warnings}</p>`;
-      if (m.ams) html += `<p><strong>AMS notes:</strong> ${m.ams}</p>`;
-      monographBox.innerHTML = html;
+  recContent.innerHTML = parts.length
+    ? parts.join("<br><br>")
+    : "No monograph saved yet for this drug.";
 
-      // Pediatric calculator
-      if (currentMode === "pediatric" && m.weightBased && m.mgPerKgDose) {
-        pediaCalcCard.style.display = "block";
-        updatePediaCalc(val);
-      } else {
-        pediaCalcCard.style.display = "none";
-      }
-    }
+  // Full monograph
+  let html = "";
+  html += `<h3>${val} – ${currentMode === "adult" ? "Adult" : "Pediatric"} Monograph</h3>`;
+  if (m.spectrum) html += `<p><strong>Spectrum:</strong> ${m.spectrum}</p>`;
+  if (m.dosing) html += `<p><strong>Dosing:</strong> ${m.dosing}</p>`;
+  if (m.renal) html += `<p><strong>Renal adjustment:</strong> ${m.renal}</p>`;
+  if (m.hepatic) html += `<p><strong>Hepatic adjustment:</strong> ${m.hepatic}</p>`;
+  if (m.monitoring) html += `<p><strong>Monitoring:</strong> ${m.monitoring}</p>`;
+  if (m.warnings) html += `<p><strong>Warnings:</strong> ${m.warnings}</p>`;
+  if (m.ams) html += `<p><strong>AMS notes:</strong> ${m.ams}</p>`;
+  if (!html) {
+    html = `<p>No detailed monograph stored yet for ${val} in ${currentMode} mode.</p>`;
+  }
+  monographBox.innerHTML = html;
+
+  // Pediatric calculator (Option B behavior)
+  if (currentMode === "pediatric" && m.weightBased && m.mgPerKgDose > 0) {
+    pediaCalcCard.style.display = "block";
+    updatePediaCalc(val);
+  } else {
+    pediaCalcCard.style.display = "none";
+  }
+}
+
 
     function updatePediaCalc(drugName) {
       const m = DRUG_MONOGRAPHS[drugName]?.pediatric;
@@ -1097,6 +1108,13 @@ document.getElementById("submitBtn").addEventListener("click", () => {
       }
     }
 
+const DRUG_MONOGRAPHS = {
+  adult: window.ADULT_MONOGRAPHS || {},
+  pediatric: window.PEDIATRIC_MONOGRAPHS || {}
+};
+
+
+    
     function collectPayload() {
       const payload = {
         mode: currentMode,
