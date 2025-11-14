@@ -15,22 +15,18 @@
       --text-muted: #6b7280;
       --border: #d1d5db;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: var(--bg-main);
       color: var(--text-main);
     }
-
     .app {
       max-width: 1100px;
       margin: 0 auto 3rem;
       padding: 1rem;
     }
-
     header {
       display: flex;
       align-items: center;
@@ -41,19 +37,20 @@
       border-radius: 0 0 0.75rem 0.75rem;
       margin: 0 -1rem 1.5rem;
     }
-
     header img {
       height: 48px;
       width: auto;
     }
-
+    header .title-block {
+      display: flex;
+      flex-direction: column;
+    }
     header .title-block h1 {
       margin: 0;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
-
     header .title-block span {
       font-size: 0.8rem;
       opacity: 0.9;
@@ -67,7 +64,6 @@
       background: #fff;
       margin-bottom: 1rem;
     }
-
     .toggle-btn {
       padding: 0.35rem 0.9rem;
       font-size: 0.85rem;
@@ -76,7 +72,6 @@
       cursor: pointer;
       min-width: 90px;
     }
-
     .toggle-btn.active {
       background: var(--osmak-green);
       color: #fff;
@@ -88,7 +83,6 @@
       grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
       gap: 1rem;
     }
-
     @media (max-width: 900px) {
       .grid-two {
         grid-template-columns: minmax(0, 1fr);
@@ -103,7 +97,6 @@
       border: 1px solid #e5e7eb;
       margin-bottom: 1rem;
     }
-
     .card h2 {
       margin: 0 0 0.5rem;
       font-size: 0.95rem;
@@ -118,7 +111,6 @@
       gap: 0.75rem;
       margin-bottom: 0.5rem;
     }
-
     .field {
       flex: 1 1 140px;
       min-width: 120px;
@@ -126,12 +118,10 @@
       flex-direction: column;
       gap: 0.25rem;
     }
-
     .field label {
       font-size: 0.75rem;
       color: var(--text-muted);
     }
-
     input[type="text"],
     input[type="number"],
     select,
@@ -144,28 +134,45 @@
       outline: none;
       background: #fff;
     }
-
     textarea {
       min-height: 70px;
       resize: vertical;
     }
-
     input:focus,
     select:focus,
     textarea:focus {
       border-color: var(--osmak-green);
       box-shadow: 0 0 0 1px rgba(0, 154, 62, 0.15);
     }
-
     .readonly-box {
       padding: 0.45rem 0.6rem;
       border-radius: 0.5rem;
       border: 1px dashed var(--border);
+      font-size: 0.85rem;
       background: #f9fafb;
       min-height: 32px;
       display: flex;
       align-items: center;
-      font-size: 0.85rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-left: 0.25rem;
+    }
+    .tag.monitored {
+      background: rgba(0,154,62,0.1);
+      color: var(--osmak-green);
+    }
+    .tag.restricted {
+      background: rgba(220,38,38,0.1);
+      color: var(--osmak-red);
     }
 
     .dose-layout {
@@ -173,7 +180,6 @@
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
       gap: 0.75rem;
     }
-
     @media (max-width: 900px) {
       .dose-layout {
         grid-template-columns: minmax(0, 1fr);
@@ -187,24 +193,28 @@
       background: #f9fafb;
       font-size: 0.8rem;
     }
+    .mini-panel h3 {
+      margin: 0 0 0.25rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
 
     .chips-row {
       display: flex;
-      gap: 0.5rem;
       flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.78rem;
     }
-
     .chip {
       padding: 0.2rem 0.6rem;
       border-radius: 999px;
       border: 1px solid var(--border);
       cursor: pointer;
-      font-size: 0.78rem;
     }
-
     .chip.active {
       border-color: var(--osmak-green);
-      background: rgba(0,154,62,0.08);
+      background: rgba(0,154,62,0.06);
       color: var(--osmak-green-dark);
     }
 
@@ -216,32 +226,37 @@
       font-size: 0.95rem;
       color: var(--text-muted);
     }
-
     .icon-btn.danger {
       color: var(--osmak-red);
     }
 
     .dyn-row {
       display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr) minmax(0, 1.4fr) auto;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr) minmax(0, 1.2fr) auto;
       gap: 0.4rem;
       margin-bottom: 0.35rem;
       align-items: center;
+    }
+    @media (max-width: 700px) {
+      .dyn-row {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-auto-rows: auto;
+      }
     }
 
     .organism-block {
       border-radius: 0.75rem;
       border: 1px dashed var(--border);
-      padding: 0.6rem;
-      background: #f9fafb;
+      padding: 0.6rem 0.7rem;
       margin-bottom: 0.5rem;
+      background: #f9fafb;
     }
-
     .organism-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 0.3rem;
+      font-size: 0.82rem;
     }
 
     .monograph {
@@ -251,6 +266,12 @@
       line-height: 1.35;
       padding-right: 0.3rem;
     }
+    .monograph h3 {
+      margin-top: 0;
+      font-size: 0.88rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.25rem;
+    }
 
     .actions {
       display: flex;
@@ -258,42 +279,44 @@
       gap: 0.75rem;
       margin-top: 1rem;
     }
-
     .btn {
       border-radius: 999px;
+      border: 1px solid transparent;
       padding: 0.45rem 1.1rem;
       font-size: 0.85rem;
       cursor: pointer;
       font-weight: 600;
     }
-
+    .btn.secondary {
+      background: #fff;
+      border-color: var(--border);
+      color: var(--text-main);
+    }
     .btn.primary {
       background: var(--osmak-green);
       color: #fff;
-      border: none;
+    }
+    .btn.primary:hover {
+      background: var(--osmak-green-dark);
     }
 
-    .btn.secondary {
-      background: #fff;
-      border: 1px solid var(--border);
-      color: var(--text-main);
+    .banner {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
     }
 
     /* Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(15,23,42,0.35);
+      background: rgba(15, 23, 42, 0.35);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 50;
     }
-
-    .modal-backdrop.show {
-      display: flex;
-    }
-
+    .modal-backdrop.show { display: flex; }
     .modal {
       background: #fff;
       border-radius: 0.75rem;
@@ -303,55 +326,68 @@
       overflow: auto;
       box-shadow: 0 20px 40px rgba(15,23,42,0.3);
     }
-
     .modal-header {
-      display: flex;
-      justify-content: space-between;
       padding: 0.75rem 1rem;
       border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h3 {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+    .modal-body {
+      padding: 0.75rem 1rem 1rem;
+      font-size: 0.84rem;
+    }
+    .summary-row {
+      margin-bottom: 0.4rem;
+    }
+    .summary-label {
+      font-weight: 600;
+      color: var(--text-muted);
+      font-size: 0.8rem;
     }
 
-    .modal-body {
-      padding: 1rem;
-      font-size: 0.84rem;
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: rgba(0,0,0,0.04);
     }
   </style>
 </head>
-
 <body>
   <div class="app">
-
     <header>
-      <img src="https://maxterrenal-hash.github.io/justculture/osmak-logo.png" />
+      <img src="https://maxterrenal-hash.github.io/justculture/osmak-logo.png" alt="Ospital ng Makati Logo" />
       <div class="title-block">
         <h1>Ospital ng Makati</h1>
         <span>Antimicrobial Request System</span>
       </div>
     </header>
 
-    <!-- Mode Toggle -->
     <div class="toggle-row" id="modeToggle">
       <button class="toggle-btn active" data-mode="adult">Adult</button>
       <button class="toggle-btn" data-mode="pediatric">Pediatric</button>
     </div>
 
-    <!-- PATIENT INFO -->
     <div class="card">
       <h2>Patient Information</h2>
-
       <div class="field-row">
         <div class="field">
           <label>Patient Name</label>
-          <input type="text" id="patientName">
+          <input type="text" id="patientName" />
         </div>
       </div>
-
       <div class="field-row">
         <div class="field">
           <label>Age (years)</label>
-          <input type="number" id="age" min="0">
+          <input type="number" id="age" min="0" />
         </div>
-
         <div class="field">
           <label>Sex</label>
           <select id="sex">
@@ -360,39 +396,33 @@
             <option value="female">Female</option>
           </select>
         </div>
-
         <div class="field">
           <label>Weight (kg)</label>
-          <input type="number" id="weight" min="0" step="0.1">
+          <input type="number" id="weight" min="0" step="0.1" />
         </div>
-
         <div class="field" id="heightField" style="display:none;">
           <label>Height (cm)</label>
-          <input type="number" id="height" min="0" step="0.1">
+          <input type="number" id="height" min="0" step="0.1" />
         </div>
       </div>
-
       <div class="field-row">
         <div class="field">
           <label>Hospital Number</label>
-          <input type="text" id="hospitalNumber">
+          <input type="text" id="hospitalNumber" />
         </div>
-
         <div class="field">
           <label>Ward / Unit</label>
-          <input type="text" id="ward">
+          <input type="text" id="ward" />
         </div>
       </div>
-
       <div class="field-row">
         <div class="field">
           <label>Requesting Physician</label>
-          <input type="text" id="physician">
+          <input type="text" id="physician" />
         </div>
       </div>
-
       <div class="field-row">
-        <div class="field" style="flex:1 1 100%;">
+        <div class="field" style="flex: 1 1 100%;">
           <label>Diagnosis</label>
           <textarea id="diagnosis"></textarea>
         </div>
@@ -400,26 +430,19 @@
     </div>
 
     <div class="grid-two">
-
-      <!-- LEFT COLUMN -->
       <div>
-
-        <!-- LAB DATA -->
         <div class="card">
           <h2>Laboratory Data</h2>
-
           <div class="field-row">
             <div class="field">
               <label>Serum Creatinine (mg/dL)</label>
-              <input type="number" id="scr" min="0" step="0.01">
+              <input type="number" id="scr" min="0" step="0.01" />
             </div>
-
             <div class="field">
               <label>SGPT (optional)</label>
-              <input type="number" id="sgpt" min="0">
+              <input type="number" id="sgpt" min="0" step="1" />
             </div>
           </div>
-
           <div class="field-row">
             <div class="field" style="flex:1 1 100%;">
               <label id="egfrLabel">Renal Function (eGFR)</label>
@@ -428,12 +451,10 @@
           </div>
         </div>
 
-        <!-- ANTIMICROBIAL SELECTION -->
         <div class="card">
           <h2>Antimicrobial Selection</h2>
-
           <div class="field-row">
-            <div class="field" style="flex:1 1 100%;">
+            <div class="field" style="flex: 1 1 100%;">
               <label>Antimicrobial</label>
               <select id="antimicrobialSelect">
                 <option value="">Select drug</option>
@@ -443,174 +464,170 @@
 
           <div id="dosingSection" style="display:none;">
             <div class="dose-layout">
-
               <div>
                 <div class="field-row">
                   <div class="field">
                     <label>Dose</label>
-                    <input type="text" id="dose">
+                    <input type="text" id="dose" />
                   </div>
-
                   <div class="field">
                     <label>Frequency</label>
-                    <input type="text" id="frequency">
+                    <input type="text" id="frequency" />
                   </div>
-
                   <div class="field">
                     <label>Duration (days)</label>
-                    <input type="text" id="duration">
+                    <input type="text" id="duration" />
                   </div>
                 </div>
 
-                <!-- Pediatric Calculator -->
-                <div class="card" id="pediaCalcCard"
-                     style="margin-top:0.75rem; display:none; padding:0.6rem;">
+                <div class="card" id="pediaCalcCard" style="margin-top:0.75rem; display:none; padding:0.6rem 0.75rem;">
                   <h2 style="margin-bottom:0.4rem;">Pediatric Dose Calculator</h2>
-
                   <div class="mini-panel">
                     <div>Weight (kg): <span id="pcWeight">—</span></div>
                     <div id="pcRule">Rule: —</div>
                     <div>Calculated Dose: <span id="pcDose">—</span></div>
-
-                    <button class="btn secondary"
-                            style="margin-top:0.4rem;"
-                            id="pcCopyBtn">
-                      Copy to Dose
-                    </button>
+                    <button class="btn secondary" style="margin-top:0.4rem;" type="button" id="pcCopyBtn">Copy to Dose</button>
                   </div>
                 </div>
               </div>
 
-              <!-- Recommended Dosing -->
               <div>
-                <div class="mini-panel">
+                <div class="mini-panel" id="recommendedPanel">
                   <h3>Recommended Dosing</h3>
-                  <div id="recommendedContent">
-                    Select a drug to view standard dose, frequency, duration, and renal notes.
-                  </div>
+                  <div id="recommendedContent">Select a drug to view standard dose, frequency, duration, and renal notes.</div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
 
-        <!-- INDICATION -->
         <div class="card">
           <h2>Indication</h2>
-
           <div class="chips-row" id="indicationRow">
-            <div class="chip" data-ind="Empiric">Empiric</div>
-            <div class="chip" data-ind="Prophylactic">Prophylactic</div>
-            <div class="chip" data-ind="Therapeutic">Therapeutic</div>
+            <button type="button" class="chip" data-ind="Empiric">Empiric</button>
+            <button type="button" class="chip" data-ind="Prophylactic">Prophylactic</button>
+            <button type="button" class="chip" data-ind="Therapeutic">Therapeutic</button>
           </div>
-
         </div>
 
-        <!-- PREV/CURRENT ABX -->
         <div class="card">
           <h2>Previous / Current Antibiotics</h2>
-
           <div id="prevAbxContainer"></div>
-          <button class="icon-btn" id="addPrevAbx">➕ Add Antibiotic</button>
+          <button type="button" class="icon-btn" id="addPrevAbx">➕ Add Antibiotic</button>
         </div>
 
-        <!-- MICROBIOLOGY -->
         <div class="card">
           <h2>Microbiology Data</h2>
-
           <div class="field-row">
             <div class="field" style="flex:1 1 100%;">
               <label>Specimen Type</label>
-              <input type="text" id="specimen" placeholder="e.g., Blood, Urine">
+              <input type="text" id="specimen" placeholder="e.g., Blood, Sputum, Urine" />
             </div>
           </div>
 
           <div id="organismContainer"></div>
-          <button class="icon-btn" id="addOrganism">➕ Add Organism</button>
+          <button type="button" class="icon-btn" id="addOrganism">➕ Add Organism</button>
         </div>
-
       </div>
 
-      <!-- RIGHT COLUMN -->
       <div>
         <div class="card" style="height:100%;">
           <h2>Drug Monograph</h2>
-
           <div class="monograph" id="monographBox">
-            <p>Select an antimicrobial to view the full monograph here.</p>
+            <p>Select an antimicrobial to view its monograph here. Adult and Pediatric content will differ based on the selected mode.</p>
           </div>
         </div>
       </div>
-
     </div>
 
-    <!-- ACTION BUTTONS -->
     <div class="actions">
-      <button class="btn primary" id="submitBtn">Submit</button>
-      <button class="btn secondary" id="downloadPdfBtn">Download PDF</button>
+      <button class="btn primary" type="button" id="submitBtn">Submit</button>
+      <button class="btn secondary" type="button" id="downloadPdfBtn">Download PDF</button>
     </div>
-
-    <div class="banner">Note: Prototype only. Verify doses and renal estimates clinically.</div>
-
+    <div class="banner">Note: This is a prototype. Verify all doses and eGFR estimates before using clinically.</div>
   </div>
 
-  <!-- REVIEW MODAL -->
+  <!-- Review Modal -->
   <div class="modal-backdrop" id="modalBackdrop">
     <div class="modal">
       <div class="modal-header">
         <h3>Review Antimicrobial Request</h3>
-        <button class="icon-btn" id="modalClose">✕</button>
+        <button class="icon-btn" type="button" id="modalClose">✕</button>
       </div>
-
       <div class="modal-body" id="summaryBody"></div>
-
-      <div class="actions" style="padding: 0 1rem 1rem;">
-        <button class="btn primary" id="modalConfirm">Confirm & Submit</button>
+      <div class="actions" style="padding:0 1rem 0.8rem;">
+        <button class="btn primary" type="button" id="modalConfirm">Confirm &amp; Submit</button>
       </div>
     </div>
   </div>
 
-  <!-- External Monograph Files -->
+  <!-- External monograph files (same folder as index.html on GitHub) -->
   <script src="adult_monographs.js"></script>
   <script src="pediatric_monographs.js"></script>
 
-  <!-- MAIN SCRIPT -->
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/REPLACE_WITH_URL/exec";
+    // === CONFIG ===
+    const SCRIPT_URL = "https://script.google.com/macros/s/REPLACE_WITH_YOUR_WEBAPP_URL/exec"; // TODO: replace with your Apps Script URL
+
+    // DRUG_LISTS will be built dynamically from the monograph files.
+    const DRUG_LISTS = {
+      adult: [],
+      pediatric: []
+    };
+
+    function buildDrugListFromMonographs() {
+      DRUG_LISTS.adult = [];
+      DRUG_LISTS.pediatric = [];
+
+      if (typeof ADULT_MONOGRAPHS === "object") {
+        Object.entries(ADULT_MONOGRAPHS).forEach(([drugKey, meta]) => {
+          const type = meta.restriction || "monitored";
+          DRUG_LISTS.adult.push({
+            value: drugKey,
+            label: drugKey,
+            type
+          });
+        });
+      }
+
+      if (typeof PEDIATRIC_MONOGRAPHS === "object") {
+        Object.entries(PEDIATRIC_MONOGRAPHS).forEach(([drugKey, meta]) => {
+          const type = meta.restriction || "monitored";
+          DRUG_LISTS.pediatric.push({
+            value: drugKey,
+            label: drugKey,
+            type
+          });
+        });
+      }
+
+      // Sort alphabetically for nicer UX
+      DRUG_LISTS.adult.sort((a, b) => a.label.localeCompare(b.label));
+      DRUG_LISTS.pediatric.sort((a, b) => a.label.localeCompare(b.label));
+    }
+
+    // Defensive wrapper: if monograph JS is broken or missing, app still works with a minimal list.
+    function tryBuildDrugList() {
+      try {
+        buildDrugListFromMonographs();
+      } catch (err) {
+        console.error("Failed to build drug list from monographs. Using fallback list.", err);
+        DRUG_LISTS.adult = [
+          { value: "Ceftriaxone", label: "Ceftriaxone", type: "monitored" },
+          { value: "Meropenem", label: "Meropenem", type: "restricted" }
+        ];
+        DRUG_LISTS.pediatric = [
+          { value: "Ceftriaxone", label: "Ceftriaxone", type: "monitored" },
+          { value: "Meropenem", label: "Meropenem", type: "restricted" }
+        ];
+      }
+    }
 
     let currentMode = "adult";
     let selectedIndication = "";
 
-    // DRUG LISTS (you already validated these)
-    const DRUG_LISTS = {
-      adult: [],   // Filled dynamically below
-      pediatric: []
-    };
-
-    // Fill DRUG_LISTS from monograph files
-    function buildDrugListFromMonographs() {
-      DRUG_LISTS.adult =
-        Object.keys(ADULT_MONOGRAPHS)
-        .map(name => ({
-          value: name,
-          label: name,
-          type: ADULT_MONOGRAPHS[name].restricted ? "restricted" : "monitored"
-        }))
-        .sort((a,b)=>a.label.localeCompare(b.label));
-
-      DRUG_LISTS.pediatric =
-        Object.keys(PEDIATRIC_MONOGRAPHS)
-        .map(name => ({
-          value: name,
-          label: name,
-          type: PEDIATRIC_MONOGRAPHS[name].restricted ? "restricted" : "monitored"
-        }))
-        .sort((a,b)=>a.label.localeCompare(b.label));
-    }
-
     function init() {
-      buildDrugListFromMonographs();
+      tryBuildDrugList();
 
       // Mode toggle
       document.querySelectorAll("#modeToggle .toggle-btn").forEach(btn => {
@@ -618,82 +635,61 @@
           document.querySelectorAll("#modeToggle .toggle-btn")
             .forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
-
           currentMode = btn.dataset.mode;
           onModeChange();
         });
       });
 
-      // eGFR listeners
-      ["scr","age","sex","height"].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener("input", updateEgfr);
+      document.getElementById("scr").addEventListener("input", updateEgfr);
+      document.getElementById("age").addEventListener("input", updateEgfr);
+      document.getElementById("sex").addEventListener("change", updateEgfr);
+      document.getElementById("height").addEventListener("input", updateEgfr);
+
+      const antimicrobialSelect = document.getElementById("antimicrobialSelect");
+      antimicrobialSelect.addEventListener("change", onDrugChange);
+
+      document.getElementById("addPrevAbx").addEventListener("click", addPrevAbxRow);
+      document.getElementById("addOrganism").addEventListener("click", addOrganismBlock);
+
+      document.getElementById("pcCopyBtn").addEventListener("click", () => {
+        const pcDose = document.getElementById("pcDose").textContent;
+        if (pcDose && pcDose !== "—") {
+          document.getElementById("dose").value = pcDose;
+        }
       });
-
-      // Antimicrobial selection
-      document.getElementById("antimicrobialSelect")
-        .addEventListener("change", onDrugChange);
-
-      // Previous abx
-      document.getElementById("addPrevAbx")
-        .addEventListener("click", addPrevAbxRow);
-
-      // Organisms
-      document.getElementById("addOrganism")
-        .addEventListener("click", addOrganismBlock);
-
-      // Pedia calculator copy
-      document.getElementById("pcCopyBtn")
-        .addEventListener("click", () => {
-          const val = document.getElementById("pcDose").textContent;
-          if (val && val !== "—") document.getElementById("dose").value = val;
-        });
 
       // Indication chips
       document.querySelectorAll("#indicationRow .chip").forEach(chip => {
         chip.addEventListener("click", () => {
-          document.querySelectorAll("#indicationRow .chip")
-            .forEach(c => c.classList.remove("active"));
+          document.querySelectorAll("#indicationRow .chip").forEach(c => c.classList.remove("active"));
           chip.classList.add("active");
           selectedIndication = chip.dataset.ind;
         });
       });
 
-      // Submit → always REVIEW
-      document.getElementById("submitBtn")
-        .addEventListener("click", openReviewModal);
+      // Submit → always review first
+      document.getElementById("submitBtn").addEventListener("click", () => {
+        openReviewModal();
+      });
 
-      // Modal close
-      document.getElementById("modalClose")
-        .addEventListener("click", closeModal);
+      document.getElementById("modalClose").addEventListener("click", closeModal);
+      document.getElementById("modalConfirm").addEventListener("click", submitForm);
 
-      // Confirm submit
-      document.getElementById("modalConfirm")
-        .addEventListener("click", submitForm);
-
-      // PDF button placeholder
-      document.getElementById("downloadPdfBtn")
-        .addEventListener("click", () => {
-          console.log("PDF payload:", collectPayload());
-          alert("PDF generator not yet attached.");
-        });
-
-      // Initial setup
       onModeChange();
       addPrevAbxRow();
       addOrganismBlock();
     }
 
     function onModeChange() {
+      // Height field visibility
       const heightField = document.getElementById("heightField");
       heightField.style.display = currentMode === "pediatric" ? "flex" : "none";
 
+      // Update eGFR label
       const egfrLabel = document.getElementById("egfrLabel");
-      egfrLabel.textContent =
-        currentMode === "adult"
+      egfrLabel.textContent = currentMode === "adult"
         ? "Renal Function (CKD-EPI eGFR, mL/min/1.73m²)"
         : "Renal Function (CKiD U25 eGFR, mL/min/1.73m²)";
-
       document.getElementById("egfrBox").textContent = "—";
 
       populateDrugOptions();
@@ -703,31 +699,28 @@
 
     function populateDrugOptions() {
       const sel = document.getElementById("antimicrobialSelect");
-      const saved = sel.value;
+      const currentVal = sel.value;
+      sel.innerHTML = "";
+      const opt0 = document.createElement("option");
+      opt0.value = "";
+      opt0.textContent = "Select drug";
+      sel.appendChild(opt0);
 
-      sel.innerHTML = "<option value=''>Select drug</option>";
-
-      DRUG_LISTS[currentMode].forEach(drug => {
-        const o = document.createElement("option");
-        o.value = drug.value;
-        o.textContent =
-          drug.label +
-          (drug.type === "restricted"
-           ? " (Restricted)"
-           : " (Monitored)");
-        sel.appendChild(o);
+      const list = DRUG_LISTS[currentMode] || [];
+      list.forEach(drug => {
+        const opt = document.createElement("option");
+        opt.value = drug.value;
+        opt.textContent = drug.label + (drug.type === "monitored" ? " (Monitored)" : " (Restricted)");
+        sel.appendChild(opt);
       });
-
-      sel.value = saved;
+      sel.value = currentVal;
     }
 
-    /* ==== eGFR FUNCTIONS ==== */
-
     function updateEgfr() {
-      const age = Number(document.getElementById("age").value);
+      const age = parseFloat(document.getElementById("age").value);
       const sex = document.getElementById("sex").value;
-      const scr = Number(document.getElementById("scr").value);
-      const height = Number(document.getElementById("height").value);
+      const scr = parseFloat(document.getElementById("scr").value);
+      const height = parseFloat(document.getElementById("height").value);
       const box = document.getElementById("egfrBox");
 
       if (!age || !sex || !scr) {
@@ -735,16 +728,15 @@
         return;
       }
 
-      let egfr = NaN;
-
+      let egfr;
       if (currentMode === "adult") {
-        egfr = calcCkdEpi(age, sex, scr);
+        egfr = calcCkdEpi2021(age, sex, scr);
       } else {
         if (!height) {
           box.textContent = "Enter height to compute CKiD eGFR.";
           return;
         }
-        egfr = calcCkid(height, scr, age, sex);
+        egfr = calcCkidApprox(age, sex, scr, height);
       }
 
       if (!isFinite(egfr)) {
@@ -754,195 +746,185 @@
       }
     }
 
-    // CKD-EPI 2021 (creatinine only)
-    function calcCkdEpi(age, sex, scr) {
+    // 2021 CKD-EPI creatinine-only equation (without race)
+    function calcCkdEpi2021(age, sex, scr) {
       const k = sex === "female" ? 0.7 : 0.9;
       const alpha = sex === "female" ? -0.241 : -0.302;
-      const minScr = Math.min(scr / k, 1);
-      const maxScr = Math.max(scr / k, 1);
-      const egfr =
-        142 *
-        Math.pow(minScr, alpha) *
-        Math.pow(maxScr, -1.2) *
-        Math.pow(0.9938, age) *
-        (sex === "female" ? 1.012 : 1);
-
+      const minScrK = Math.min(scr / k, 1);
+      const maxScrK = Math.max(scr / k, 1);
+      const egfr = 142
+        * Math.pow(minScrK, alpha)
+        * Math.pow(maxScrK, -1.2)
+        * Math.pow(0.9938, age)
+        * (sex === "female" ? 1.012 : 1);
       return egfr;
     }
 
-    // Simplified CKiD U25 prototype
-    function calcCkid(heightCm, scr, age, sex) {
+    // Approximate CKiD U25 creatinine equation.
+    function calcCkidApprox(age, sex, scr, heightCm) {
       let k = 41;
       if (age < 5) k = 33;
       if (sex === "male" && age >= 13) k = 38;
-      return k * (heightCm / scr);
+      const egfr = k * (heightCm / scr);
+      return egfr;
     }
-
-    /* ==== DRUG CHANGE ==== */
 
     function onDrugChange() {
       const sel = document.getElementById("antimicrobialSelect");
-      const drug = sel.value;
-
+      const val = sel.value;
       const dosingSection = document.getElementById("dosingSection");
-      const recBox = document.getElementById("recommendedContent");
-      const monoBox = document.getElementById("monographBox");
-      const pediaCard = document.getElementById("pediaCalcCard");
+      const recContent = document.getElementById("recommendedContent");
+      const monographBox = document.getElementById("monographBox");
+      const pediaCalcCard = document.getElementById("pediaCalcCard");
 
-      if (!drug) {
+      if (!val) {
         dosingSection.style.display = "none";
-        monoBox.innerHTML = "<p>Select drug.</p>";
-        recBox.textContent = "Select a drug.";
-        pediaCard.style.display = "none";
+        recContent.textContent = "Select a drug to view standard dose, frequency, duration, and renal notes.";
+        monographBox.innerHTML = "<p>Select an antimicrobial to view its monograph here. Adult and Pediatric content will differ based on the selected mode.</p>";
+        pediaCalcCard.style.display = "none";
         return;
       }
 
-      const M =
-        currentMode === "adult"
-        ? ADULT_MONOGRAPHS[drug]
-        : PEDIATRIC_MONOGRAPHS[drug];
+      const isPedia = currentMode === "pediatric";
+      const mono = isPedia
+        ? ((typeof PEDIATRIC_MONOGRAPHS === "object" && PEDIATRIC_MONOGRAPHS[val]) || (typeof ADULT_MONOGRAPHS === "object" && ADULT_MONOGRAPHS[val]))
+        : ((typeof ADULT_MONOGRAPHS === "object" && ADULT_MONOGRAPHS[val]) || (typeof PEDIATRIC_MONOGRAPHS === "object" && PEDIATRIC_MONOGRAPHS[val]));
 
-      if (!M) {
+      if (!mono) {
         dosingSection.style.display = "none";
-        monoBox.innerHTML = "<p>No monograph found.</p>";
-        recBox.textContent = "No data.";
-        pediaCard.style.display = "none";
+        recContent.textContent = "No monograph data found for this drug. Check your monograph files.";
+        monographBox.innerHTML = `<p><strong>${val}</strong>: No monograph data found. Verify adult_monographs.js / pediatric_monographs.js.</p>`;
+        pediaCalcCard.style.display = "none";
         return;
       }
 
+      const m = mono;
       dosingSection.style.display = "block";
 
-      /* Recommended dosing panel */
-      const p = [];
-      if (M.dosing) p.push("<b>Dosing:</b> " + M.dosing);
-      if (M.renal) p.push("<b>Renal:</b> " + M.renal);
-      if (M.duration) p.push("<b>Duration:</b> " + M.duration);
-      if (M.warnings) p.push("<b>Warnings:</b> " + M.warnings);
-      if (M.ams) p.push("<b>AMS:</b> " + M.ams);
+      const parts = [];
+      if (m.dosing) parts.push(`<strong>Dosing:</strong> ${m.dosing}`);
+      if (m.renal) parts.push(`<strong>Renal adjustment:</strong> ${m.renal}`);
+      if (m.hepatic) parts.push(`<strong>Hepatic adjustment:</strong> ${m.hepatic}`);
+      if (m.duration) parts.push(`<strong>Typical duration:</strong> ${m.duration}`);
+      if (m.monitoring) parts.push(`<strong>Monitoring:</strong> ${m.monitoring}`);
+      if (m.warnings) parts.push(`<strong>Warnings:</strong> ${m.warnings}`);
+      if (m.ams) parts.push(`<strong>AMS notes:</strong> ${m.ams}`);
+      recContent.innerHTML = parts.join("<br><br>") || "No data available.";
 
-      recBox.innerHTML = p.join("<br><br>") || "No data.";
+      let html = "";
+      html += `<h3>${val} – ${isPedia ? "Pediatric" : "Adult"} Monograph</h3>`;
+      if (m.spectrum) html += `<p><strong>Spectrum:</strong> ${m.spectrum}</p>`;
+      if (m.dosing) html += `<p><strong>Dosing:</strong> ${m.dosing}</p>`;
+      if (m.renal) html += `<p><strong>Renal adjustment:</strong> ${m.renal}</p>`;
+      if (m.hepatic) html += `<p><strong>Hepatic adjustment:</strong> ${m.hepatic}</p>`;
+      if (m.duration) html += `<p><strong>Typical duration:</strong> ${m.duration}</p>`;
+      if (m.monitoring) html += `<p><strong>Monitoring:</strong> ${m.monitoring}</p>`;
+      if (m.warnings) html += `<p><strong>Warnings:</strong> ${m.warnings}</p>`;
+      if (m.ams) html += `<p><strong>AMS notes:</strong> ${m.ams}</p>`;
+      monographBox.innerHTML = html;
 
-      /* Full monograph */
-      let html = `<h3>${drug} – ${currentMode}</h3>`;
-      Object.entries(M).forEach(([k,v]) => {
-        if (["weightBased","mgPerKgDose","restricted"].includes(k)) return;
-        if (v) html += `<p><b>${k}:</b> ${v}</p>`;
-      });
-
-      monoBox.innerHTML = html;
-
-      /* Pediatric calculator */
-      if (
-        currentMode === "pediatric" &&
-        M.weightBased &&
-        Number(M.mgPerKgDose) > 0
-      ) {
-        pediaCard.style.display = "block";
-        updatePediaCalc(drug);
+      if (isPedia && m.weightBased && m.mgPerKgDose) {
+        pediaCalcCard.style.display = "block";
+        updatePediaCalc(val);
       } else {
-        pediaCard.style.display = "none";
+        pediaCalcCard.style.display = "none";
       }
     }
 
-    function updatePediaCalc(drug) {
-      const M = PEDIATRIC_MONOGRAPHS[drug];
-      const weight = Number(document.getElementById("weight").value);
+    function updatePediaCalc(drugName) {
+      if (typeof PEDIATRIC_MONOGRAPHS !== "object") return;
+      const m = PEDIATRIC_MONOGRAPHS[drugName];
+      if (!m) return;
 
-      document.getElementById("pcWeight").textContent =
-        weight ? weight + " kg" : "—";
+      const weight = parseFloat(document.getElementById("weight").value);
+      const pcWeight = document.getElementById("pcWeight");
+      const pcRule = document.getElementById("pcRule");
+      const pcDose = document.getElementById("pcDose");
 
-      document.getElementById("pcRule").textContent =
-        "Rule: " + (M.mgPerKgDose || 0) + " mg/kg/dose";
+      pcWeight.textContent = isFinite(weight) && weight > 0 ? weight.toFixed(1) + " kg" : "—";
+      pcRule.textContent = `Rule: ${m.mgPerKgDose} mg/kg/dose`;
 
-      if (!weight || weight <= 0 || !M.mgPerKgDose) {
-        document.getElementById("pcDose").textContent = "—";
+      if (!weight || !isFinite(weight) || weight <= 0) {
+        pcDose.textContent = "—";
         return;
       }
-
-      const dose = weight * M.mgPerKgDose;
-      document.getElementById("pcDose").textContent = dose.toFixed(0) + " mg";
+      const calc = m.mgPerKgDose * weight;
+      pcDose.textContent = calc.toFixed(0) + " mg per dose";
     }
 
-    /* ==== PREVIOUS ABX ==== */
+    document.getElementById("weight").addEventListener("input", () => {
+      const sel = document.getElementById("antimicrobialSelect");
+      if (currentMode === "pediatric" && sel.value && typeof PEDIATRIC_MONOGRAPHS === "object") {
+        const mono = PEDIATRIC_MONOGRAPHS[sel.value];
+        if (mono && mono.weightBased) {
+          updatePediaCalc(sel.value);
+        }
+      }
+    });
 
     function addPrevAbxRow() {
-      const cont = document.getElementById("prevAbxContainer");
+      const container = document.getElementById("prevAbxContainer");
       const row = document.createElement("div");
       row.className = "dyn-row";
-
       row.innerHTML = `
-        <input type="text" placeholder="Drug">
-        <input type="text" placeholder="Frequency">
-        <input type="text" placeholder="Duration">
-        <button class="icon-btn danger">➖</button>
+        <input type="text" placeholder="Drug name" />
+        <input type="text" placeholder="Frequency" />
+        <input type="text" placeholder="Duration" />
+        <button type="button" class="icon-btn danger" title="Remove">➖</button>
       `;
-
       row.querySelector("button").addEventListener("click", () => row.remove());
-      cont.appendChild(row);
+      container.appendChild(row);
     }
 
-    /* ==== ORGANISMS ==== */
-
     function addOrganismBlock() {
-      const cont = document.getElementById("organismContainer");
-
+      const container = document.getElementById("organismContainer");
       const block = document.createElement("div");
       block.className = "organism-block";
-
       block.innerHTML = `
         <div class="organism-header">
           <span>Organism</span>
-          <button class="icon-btn danger">➖</button>
+          <button type="button" class="icon-btn danger" title="Remove organism">➖</button>
         </div>
-
         <div class="field-row">
           <div class="field" style="flex:1 1 100%;">
             <label>Name</label>
-            <input type="text" placeholder="e.g., E. coli">
+            <input type="text" placeholder="e.g., E. coli" />
           </div>
         </div>
-
         <div class="field-row">
           <div class="field" style="flex:1 1 100%;">
-            <label>Susceptibilities</label>
-
+            <label>Susceptibilities (Drug – S/I/R)</label>
             <div class="dyn-row"></div>
-
-            <button class="icon-btn" data-role="add-susc">➕ Add Drug</button>
+            <button type="button" class="icon-btn" data-role="add-susc">➕ Add Drug</button>
           </div>
         </div>
       `;
+      const removeBtn = block.querySelector(".organism-header button");
+      removeBtn.addEventListener("click", () => block.remove());
 
-      // remove block
-      block.querySelector(".organism-header button")
-        .addEventListener("click", () => block.remove());
+      const dynRow = block.querySelector(".dyn-row");
+      const addSuscBtn = block.querySelector("[data-role='add-susc']");
+      addSuscBtn.addEventListener("click", () => {
+        const row = document.createElement("div");
+        row.className = "dyn-row";
+        row.innerHTML = `
+          <input type="text" placeholder="Drug" />
+          <select>
+            <option value="S">S</option>
+            <option value="I">I</option>
+            <option value="R">R</option>
+          </select>
+        `;
+        dynRow.appendChild(row);
+      });
 
-      // add susceptibility row
-      block.querySelector("[data-role='add-susc']")
-        .addEventListener("click", () => {
-          const row = document.createElement("div");
-          row.className = "dyn-row";
-          row.innerHTML = `
-            <input type="text" placeholder="Drug">
-            <select>
-              <option value="S">S</option>
-              <option value="I">I</option>
-              <option value="R">R</option>
-            </select>
-          `;
-          block.querySelector(".dyn-row").appendChild(row);
-        });
-
-      // add one row by default
-      block.querySelector("[data-role='add-susc']").click();
-
-      cont.appendChild(block);
+      addSuscBtn.click();
+      container.appendChild(block);
     }
 
-    /* ==== REVIEW MODAL ==== */
-
     function openReviewModal() {
-      document.getElementById("summaryBody").innerHTML = buildSummary();
+      const summary = buildSummary();
+      document.getElementById("summaryBody").innerHTML = summary;
       document.getElementById("modalBackdrop").classList.add("show");
     }
 
@@ -951,140 +933,167 @@
     }
 
     function buildSummary() {
-      const val = id => document.getElementById(id).value || "—";
+      const name = document.getElementById("patientName").value || "—";
+      const age = document.getElementById("age").value || "—";
+      const sex = document.getElementById("sex").value || "—";
+      const wt = document.getElementById("weight").value || "—";
+      const ht = document.getElementById("height").value || (currentMode === "pediatric" ? "—" : "");
+      const hospNo = document.getElementById("hospitalNumber").value || "—";
+      const ward = document.getElementById("ward").value || "—";
+      const phys = document.getElementById("physician").value || "—";
+      const dx = document.getElementById("diagnosis").value || "—";
+      const scr = document.getElementById("scr").value || "—";
       const egfr = document.getElementById("egfrBox").textContent || "—";
+      const sgpt = document.getElementById("sgpt").value || "—";
 
-      let prev = [];
-      document.querySelectorAll("#prevAbxContainer .dyn-row").forEach(r => {
-        const x = r.querySelectorAll("input");
-        if (x[0].value || x[1].value || x[2].value) {
-          prev.push(`${x[0].value || "?"} – ${x[1].value || "?"} – ${x[2].value || "?"}`);
+      const drug = document.getElementById("antimicrobialSelect").value || "—";
+      const dose = document.getElementById("dose").value || "—";
+      const freq = document.getElementById("frequency").value || "—";
+      const dur = document.getElementById("duration").value || "—";
+
+      const specimen = document.getElementById("specimen").value || "—";
+
+      let prevAbx = [];
+      document.querySelectorAll("#prevAbxContainer .dyn-row").forEach(row => {
+        const inputs = row.querySelectorAll("input");
+        if (inputs.length >= 3) {
+          const d = inputs[0].value.trim();
+          const f = inputs[1].value.trim();
+          const du = inputs[2].value.trim();
+          if (d || f || du) prevAbx.push(`${d || "?"} – ${f || "?"} – ${du || "?"}`);
         }
       });
 
       let orgs = [];
-      document.querySelectorAll("#organismContainer .organism-block").forEach(b => {
-        const name = b.querySelector("input").value || "Unknown";
-        const list = [];
-        b.querySelectorAll(".dyn-row").forEach(rr => {
-          const i = rr.querySelector("input");
-          const s = rr.querySelector("select");
-          if (i && s) list.push(`${i.value || "?"} – ${s.value}`);
-        });
-        orgs.push(name + ": " + list.join(", "));
+      document.querySelectorAll("#organismContainer .organism-block").forEach(block => {
+        const nameInput = block.querySelector("input[type='text']");
+        const orgName = nameInput?.value || "Unknown";
+        const suscRows = block.querySelectorAll(".dyn-row input, .dyn-row select");
+        const pairs = [];
+        for (let i = 0; i < suscRows.length; i += 2) {
+          const drugName = suscRows[i].value || "?";
+          const res = suscRows[i + 1]?.value || "?";
+          if (drugName || res) pairs.push(`${drugName} – ${res}`);
+        }
+        orgs.push(`${orgName}: ${pairs.join(", ")}`);
       });
 
+      const ind = selectedIndication || "—";
+
       return `
-        <div><b>Mode:</b> ${currentMode}</div>
-        <div><b>Patient:</b> ${val("patientName")} (${val("age")} y, ${val("sex")}, ${val("weight")} kg)</div>
-        ${currentMode === "pediatric" ? `<div><b>Height:</b> ${val("height")} cm</div>` : ""}
-        <div><b>Hospital / Ward:</b> ${val("hospitalNumber")} / ${val("ward")}</div>
-        <div><b>Physician:</b> ${val("physician")}</div>
-        <div><b>Diagnosis:</b> ${val("diagnosis")}</div>
-        <hr>
-        <div><b>Scr:</b> ${val("scr")} mg/dL</div>
-        <div><b>eGFR:</b> ${egfr}</div>
-        <div><b>SGPT:</b> ${val("sgpt")}</div>
-        <hr>
-        <div><b>Antimicrobial:</b> ${val("antimicrobialSelect")}</div>
-        <div><b>Dose:</b> ${val("dose")}</div>
-        <div><b>Frequency:</b> ${val("frequency")}</div>
-        <div><b>Duration:</b> ${val("duration")}</div>
-        <div><b>Indication:</b> ${selectedIndication || "—"}</div>
-        <hr>
-        <div><b>Prev/Current Antibiotics:</b> ${prev.length ? prev.join("; ") : "None"}</div>
-        <div><b>Specimen:</b> ${val("specimen")}</div>
-        <div><b>Organisms:</b> ${orgs.length ? orgs.join(" | ") : "None"}</div>
+        <div class="summary-row"><span class="summary-label">Mode:</span> ${currentMode === "adult" ? "Adult" : "Pediatric"}</div>
+        <div class="summary-row"><span class="summary-label">Patient:</span> ${name} (${age} y, ${sex}, ${wt} kg${currentMode === "pediatric" ? `, ${ht} cm` : ""})</div>
+        <div class="summary-row"><span class="summary-label">Hospital No. / Ward:</span> ${hospNo} / ${ward}</div>
+        <div class="summary-row"><span class="summary-label">Physician:</span> ${phys}</div>
+        <div class="summary-row"><span class="summary-label">Diagnosis:</span> ${dx}</div>
+        <hr />
+        <div class="summary-row"><span class="summary-label">Creatinine / eGFR:</span> Scr ${scr} mg/dL; ${egfr}</div>
+        <div class="summary-row"><span class="summary-label">SGPT:</span> ${sgpt}</div>
+        <hr />
+        <div class="summary-row"><span class="summary-label">Antimicrobial:</span> ${drug}</div>
+        <div class="summary-row"><span class="summary-label">Dose / Frequency / Duration:</span> ${dose} / ${freq} / ${dur}</div>
+        <div class="summary-row"><span class="summary-label">Indication:</span> ${ind}</div>
+        <hr />
+        <div class="summary-row"><span class="summary-label">Previous / Current Antibiotics:</span> ${prevAbx.length ? prevAbx.join("; ") : "None listed"}</div>
+        <div class="summary-row"><span class="summary-label">Specimen:</span> ${specimen}</div>
+        <div class="summary-row"><span class="summary-label">Organisms &amp; Susceptibilities:</span> ${orgs.length ? orgs.join(" | ") : "None listed"}</div>
       `;
     }
-
-    /* ==== SUBMIT ==== */
 
     async function submitForm() {
       closeModal();
 
       const payload = collectPayload();
 
-      if (!SCRIPT_URL.includes("https")) {
-        alert("Replace SCRIPT_URL with your Google Apps Script WebApp URL.");
-        console.log("Payload:", payload);
+      if (!SCRIPT_URL || SCRIPT_URL.includes("REPLACE_WITH_YOUR_WEBAPP_URL")) {
+        alert("Form payload built. Please configure SCRIPT_URL with your Google Apps Script Web App URL to enable submission. Open console to inspect payload.");
+        console.log("Payload", payload);
         return;
       }
 
       try {
-        const r = await fetch(SCRIPT_URL, {
+        const res = await fetch(SCRIPT_URL, {
           method: "POST",
-          headers: {"Content-Type":"application/json"},
+          headers: {
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify(payload)
         });
-
-        const d = await r.json().catch(()=>({}));
-        console.log("Sheet response:", d);
-
-        alert("Request submitted.");
-      }
-      catch (err) {
+        if (!res.ok) throw new Error("Network error");
+        const data = await res.json().catch(() => ({}));
+        console.log("Sheet response", data);
+        alert("Request submitted successfully. For PDF, use your browser's Print > Save as PDF on this page or future printable view.");
+      } catch (err) {
         console.error(err);
-        alert("Submission failed.");
+        alert("Failed to submit. Check console for details and verify your Apps Script URL.");
       }
     }
 
     function collectPayload() {
-      const val = id => document.getElementById(id).value || "";
-
       const payload = {
-        timestamp: new Date().toISOString(),
         mode: currentMode,
-        patientName: val("patientName"),
-        age: val("age"),
-        sex: val("sex"),
-        weightKg: val("weight"),
-        heightCm: currentMode==="pediatric" ? val("height") : "",
-        hospitalNumber: val("hospitalNumber"),
-        ward: val("ward"),
-        physician: val("physician"),
-        diagnosis: val("diagnosis"),
-        scrMgDl: val("scr"),
-        sgpt: val("sgpt"),
-        egfrText: document.getElementById("egfrBox").textContent,
-        antimicrobial: val("antimicrobialSelect"),
-        dose: val("dose"),
-        frequency: val("frequency"),
-        duration: val("duration"),
+        patientName: document.getElementById("patientName").value || "",
+        age: document.getElementById("age").value || "",
+        sex: document.getElementById("sex").value || "",
+        weightKg: document.getElementById("weight").value || "",
+        heightCm: currentMode === "pediatric" ? (document.getElementById("height").value || "") : "",
+        hospitalNumber: document.getElementById("hospitalNumber").value || "",
+        ward: document.getElementById("ward").value || "",
+        physician: document.getElementById("physician").value || "",
+        diagnosis: document.getElementById("diagnosis").value || "",
+        scrMgDl: document.getElementById("scr").value || "",
+        sgpt: document.getElementById("sgpt").value || "",
+        egfrText: document.getElementById("egfrBox").textContent || "",
+        antimicrobial: document.getElementById("antimicrobialSelect").value || "",
+        dose: document.getElementById("dose").value || "",
+        frequency: document.getElementById("frequency").value || "",
+        duration: document.getElementById("duration").value || "",
         indication: selectedIndication,
-        specimen: val("specimen"),
+        specimen: document.getElementById("specimen").value || "",
         previousAntibiotics: [],
         organisms: []
       };
 
-      document.querySelectorAll("#prevAbxContainer .dyn-row").forEach(r => {
-        const x = r.querySelectorAll("input");
-        if (x[0].value || x[1].value || x[2].value) {
-          payload.previousAntibiotics.push({
-            drug: x[0].value,
-            frequency: x[1].value,
-            duration: x[2].value
-          });
+      document.querySelectorAll("#prevAbxContainer .dyn-row").forEach(row => {
+        const inputs = row.querySelectorAll("input");
+        if (inputs.length >= 3) {
+          const d = inputs[0].value.trim();
+          const f = inputs[1].value.trim();
+          const du = inputs[2].value.trim();
+          if (d || f || du) payload.previousAntibiotics.push({ drug: d, frequency: f, duration: du });
         }
       });
 
-      document.querySelectorAll("#organismContainer .organism-block").forEach(b => {
-        const name = b.querySelector("input").value;
-        const list = [];
-        b.querySelectorAll(".dyn-row").forEach(rr => {
-          const i = rr.querySelector("input");
-          const s = rr.querySelector("select");
-          if (i && s) list.push({drug:i.value, result:s.value});
-        });
-        payload.organisms.push({name, susceptibilities:list});
+      document.querySelectorAll("#organismContainer .organism-block").forEach(block => {
+        const nameInput = block.querySelector("input[type='text']");
+        const orgName = nameInput?.value || "";
+        const suscRows = block.querySelectorAll(".dyn-row input, .dyn-row select");
+        const suscList = [];
+        for (let i = 0; i < suscRows.length; i += 2) {
+          const drugName = suscRows[i].value || "";
+          const res = suscRows[i + 1]?.value || "";
+          if (drugName || res) suscList.push({ drug: drugName, result: res });
+        }
+        if (orgName || suscList.length) payload.organisms.push({ name: orgName, susceptibilities: suscList });
       });
 
+      payload.timestamp = new Date().toISOString();
       return payload;
     }
 
-    /* ==== INIT ==== */
-    document.addEventListener("DOMContentLoaded", init);
-  </script>
+    // PDF placeholder
+    document.addEventListener("DOMContentLoaded", () => {
+      const pdfBtn = document.getElementById("downloadPdfBtn");
+      if (pdfBtn) {
+        pdfBtn.addEventListener("click", () => {
+          const payload = collectPayload();
+          console.log("PDF payload:", payload);
+          alert("PDF generator not yet attached. This button is working.");
+        });
+      }
+    });
 
+    window.addEventListener("DOMContentLoaded", init);
+  </script>
 </body>
 </html>
