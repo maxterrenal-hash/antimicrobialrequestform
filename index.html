@@ -613,11 +613,6 @@ function buildDrugListFromMonographs() {
 }
 
 
-      // Sort alphabetically for nicer UX
-      DRUG_LISTS.adult.sort((a, b) => a.label.localeCompare(b.label));
-      DRUG_LISTS.pediatric.sort((a, b) => a.label.localeCompare(b.label));
-    }
-
     // Defensive wrapper: if monograph JS is broken or missing, app still works with a minimal list.
     function tryBuildDrugList() {
       try {
