@@ -201,9 +201,8 @@ const PEDIATRIC_MONOGRAPHS = {
     restricted: true
   },
 
-  "Micafungin (Echinocandin)": {
-    spectrum: "Echinocandin active against Candida spp. and As
-pergillus spp. (fungistatic for Aspergillus).",
+"Micafungin (Echinocandin)": {
+  spectrum: "Echinocandin active against Candida spp. and Aspergillus spp. (fungistatic for Aspergillus).",
     dosing: "2–4 mg/kg/day IV (max 100 mg/day) depending on age and indication.",
     renal: "No adjustment required.",
     hepatic: "Use caution in significant hepatic impairment; monitor LFTs.",
