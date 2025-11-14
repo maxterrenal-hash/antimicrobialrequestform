@@ -462,34 +462,32 @@
             </div>
           </div>
 
-          <div id="dosingSection" style="display:none;">
-            <div class="dose-layout">
-              <div>
-                <div class="field-row">
-                  <div class="field">
-                    <label>Dose</label>
-                    <input type="text" id="dose" />
-                  </div>
-                  <div class="field">
-                    <label>Frequency</label>
-                    <input type="text" id="frequency" />
-                  </div>
-                  <div class="field">
-                    <label>Duration (days)</label>
-                    <input type="text" id="duration" />
-                  </div>
-                </div>
+<div id="dosingSection" style="display:none;">
+  <div class="field-row">
+    <div class="field">
+      <label>Dose</label>
+      <input type="text" id="dose" />
+    </div>
+    <div class="field">
+      <label>Frequency</label>
+      <input type="text" id="frequency" />
+    </div>
+    <div class="field">
+      <label>Duration (days)</label>
+      <input type="text" id="duration" />
+    </div>
+  </div>
 
-                <div class="card" id="pediaCalcCard" style="margin-top:0.75rem; display:none; padding:0.6rem 0.75rem;">
-                  <h2 style="margin-bottom:0.4rem;">Pediatric Dose Calculator</h2>
-                  <div class="mini-panel">
-                    <div>Weight (kg): <span id="pcWeight">—</span></div>
-                    <div id="pcRule">Rule: —</div>
-                    <div>Calculated Dose: <span id="pcDose">—</span></div>
-                    <button class="btn secondary" style="margin-top:0.4rem;" type="button" id="pcCopyBtn">Copy to Dose</button>
-                  </div>
-                </div>
-              </div>
+  <div class="card" id="pediaCalcCard" style="margin-top:0.75rem; display:none; padding:0.6rem 0.75rem;">
+    <h2 style="margin-bottom:0.4rem;">Pediatric Dose Calculator</h2>
+    <div class="mini-panel">
+      <div>Weight (kg): <span id="pcWeight">—</span></div>
+      <div id="pcRule">Rule: —</div>
+      <div>Calculated Dose: <span id="pcDose">—</span></div>
+      <button class="btn secondary" style="margin-top:0.4rem;" type="button" id="pcCopyBtn">Copy to Dose</button>
+    </div>
+  </div>
+</div>
 
               <div>
                 <div class="mini-panel" id="recommendedPanel">
@@ -780,13 +778,11 @@ function buildDrugListFromMonographs() {
       const sel = document.getElementById("antimicrobialSelect");
       const val = sel.value;
       const dosingSection = document.getElementById("dosingSection");
-      const recContent = document.getElementById("recommendedContent");
       const monographBox = document.getElementById("monographBox");
       const pediaCalcCard = document.getElementById("pediaCalcCard");
 
       if (!val) {
         dosingSection.style.display = "none";
-        recContent.textContent = "Select a drug to view standard dose, frequency, duration, and renal notes.";
         monographBox.innerHTML = "<p>Select an antimicrobial to view its monograph here. Adult and Pediatric content will differ based on the selected mode.</p>";
         pediaCalcCard.style.display = "none";
         return;
@@ -799,7 +795,6 @@ function buildDrugListFromMonographs() {
 
       if (!mono) {
         dosingSection.style.display = "none";
-        recContent.textContent = "No monograph data found for this drug. Check your monograph files.";
         monographBox.innerHTML = `<p><strong>${val}</strong>: No monograph data found. Verify adult_monographs.js / pediatric_monographs.js.</p>`;
         pediaCalcCard.style.display = "none";
         return;
@@ -816,7 +811,6 @@ function buildDrugListFromMonographs() {
       if (m.monitoring) parts.push(`<strong>Monitoring:</strong> ${m.monitoring}`);
       if (m.warnings) parts.push(`<strong>Warnings:</strong> ${m.warnings}`);
       if (m.ams) parts.push(`<strong>AMS notes:</strong> ${m.ams}`);
-      recContent.innerHTML = parts.join("<br><br>") || "No data available.";
 
       let html = "";
       html += `<h3>${val} – ${isPedia ? "Pediatric" : "Adult"} Monograph</h3>`;
