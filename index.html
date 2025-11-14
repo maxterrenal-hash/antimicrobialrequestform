@@ -1077,16 +1077,10 @@ function buildDrugListFromMonographs() {
     }
 
     // PDF placeholder
-    document.addEventListener("DOMContentLoaded", () => {
-      const pdfBtn = document.getElementById("downloadPdfBtn");
-      if (pdfBtn) {
-        pdfBtn.addEventListener("click", () => {
-          const payload = collectPayload();
-          console.log("PDF payload:", payload);
-          alert("PDF generator not yet attached. This button is working.");
-        });
-      }
+    document.getElementById("downloadPdfBtn").addEventListener("click", () => {
+        window.print();
     });
+
 
     window.addEventListener("DOMContentLoaded", init);
   </script>
