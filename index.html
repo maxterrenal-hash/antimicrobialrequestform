@@ -524,7 +524,6 @@
     </div>
 
 <div class="actions">
-  <button class="btn secondary" type="button" id="reviewBtn">Review</button>
   <button class="btn primary" type="button" id="submitBtn">Submit</button>
   <button class="btn secondary" type="button" id="downloadPdfBtn">Download PDF</button>
 </div>
@@ -541,7 +540,6 @@
       </div>
       <div class="modal-body" id="summaryBody"></div>
       <div class="actions" style="padding:0 1rem 0.8rem;">
-        <button class="btn secondary" type="button" id="modalEdit">Edit</button>
         <button class="btn primary" type="button" id="modalConfirm">Confirm &amp; Submit</button>
       </div>
     </div>
@@ -746,8 +744,9 @@
         });
       });
 
-      document.getElementById("reviewBtn").addEventListener("click", openReviewModal);
-      document.getElementById("submitBtn").addEventListener("click", openReviewModal);
+document.getElementById("submitBtn").addEventListener("click", () => {
+  openReviewModal(); // Always review first
+});
 
       document.getElementById("modalClose").addEventListener("click", closeModal);
       document.getElementById("modalEdit").addEventListener("click", closeModal);
