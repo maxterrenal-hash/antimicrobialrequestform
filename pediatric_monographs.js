@@ -48,7 +48,7 @@ const PEDIATRIC_MONOGRAPHS = {
   },
 
   "Caspofungin (Echinocandin)": {
-    spectrum: "Echinocandin active against Candida spp. (including azole-resistant) and Aspergillus spp.",
+    spectrum: "Echinocandin active against Candida spp. and Aspergillus spp. (fungistatic for Aspergillus).",
     dosing: "Loading dose 70 mg/m² (max 70 mg) IV day 1, then 50 mg/m²/day (max 70 mg/day).",
     renal: "No adjustment required in renal impairment.",
     hepatic: "Reduce maintenance dose in moderate hepatic impairment; avoid or use cautiously in severe hepatic disease.",
@@ -299,10 +299,6 @@ pergillus spp. (fungistatic for Aspergillus).",
     mgPerKgDose: 8,
     restricted: true
   },
-
-  // ====== MORE RESTRICTED (from your list) WITHOUT CALCULATOR SUPPORT ======
-  "Caspofungin (Echinocandin)": PEDIATRIC_MONOGRAPHS["Caspofungin (Echinocandin)"], // Already defined above
-  "Micafungin (Echinocandin)": PEDIATRIC_MONOGRAPHS["Micafungin (Echinocandin)"],
 
   // ========== MONITORED ==========
 
