@@ -575,31 +575,43 @@
       pediatric: []
     };
 
-    function buildDrugListFromMonographs() {
-      DRUG_LISTS.adult = [];
-      DRUG_LISTS.pediatric = [];
+function buildDrugListFromMonographs() {
+  DRUG_LISTS.adult = [];
+  DRUG_LISTS.pediatric = [];
 
-      if (typeof ADULT_MONOGRAPHS === "object") {
-        Object.entries(ADULT_MONOGRAPHS).forEach(([drugKey, meta]) => {
-          const type = meta.restriction || "monitored";
-          DRUG_LISTS.adult.push({
-            value: drugKey,
-            label: drugKey,
-            type
-          });
-        });
-      }
+  if (typeof ADULT_MONOGRAPHS === "object") {
+    Object.entries(ADULT_MONOGRAPHS).forEach(([drugKey, meta]) => {
+      const type =
+        meta.restriction ||           // optional string, if you ever use it
+        (meta.restricted === true
+          ? "restricted"
+          : "monitored");             // default
+      DRUG_LISTS.adult.push({
+        value: drugKey,
+        label: drugKey,
+        type
+      });
+    });
+  }
 
-      if (typeof PEDIATRIC_MONOGRAPHS === "object") {
-        Object.entries(PEDIATRIC_MONOGRAPHS).forEach(([drugKey, meta]) => {
-          const type = meta.restriction || "monitored";
-          DRUG_LISTS.pediatric.push({
-            value: drugKey,
-            label: drugKey,
-            type
-          });
-        });
-      }
+  if (typeof PEDIATRIC_MONOGRAPHS === "object") {
+    Object.entries(PEDIATRIC_MONOGRAPHS).forEach(([drugKey, meta]) => {
+      const type =
+        meta.restriction ||
+        (meta.restricted === true ? "restricted" : "monitored");
+      DRUG_LISTS.pediatric.push({
+        value: drugKey,
+        label: drugKey,
+        type
+      });
+    });
+  }
+
+  // Sort alphabetically for nicer UX
+  DRUG_LISTS.adult.sort((a, b) => a.label.localeCompare(b.label));
+  DRUG_LISTS.pediatric.sort((a, b) => a.label.localeCompare(b.label));
+}
+
 
       // Sort alphabetically for nicer UX
       DRUG_LISTS.adult.sort((a, b) => a.label.localeCompare(b.label));
