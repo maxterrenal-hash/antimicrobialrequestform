@@ -1000,11 +1000,6 @@ function buildDrugListFromMonographs() {
 
       const payload = collectPayload();
 
-      if (!SCRIPT_URL || SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbw5FBLd9Z6KXoTMSGZMTKNjJMPfBol0LiQx4rI69M_cQ_hygRDKpJWgCHF9XocSCwbV/exec")) {
-        alert("Form payload built. Please configure SCRIPT_URL with your Google Apps Script Web App URL to enable submission. Open console to inspect payload.");
-        console.log("Payload", payload);
-        return;
-      }
 
       try {
         const res = await fetch(SCRIPT_URL, {
