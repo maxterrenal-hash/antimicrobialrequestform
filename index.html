@@ -862,23 +862,33 @@ function onDrugChange() {
     pediaCalcCard.style.display = "none";
   }
 
-  // 🔴 NEW: Show extra resident section only if drug is restricted
-  const list = DRUG_LISTS[currentMode] || [];
-  const f = list.find(x => x.value === val);
-  if (f && f.type === "restricted") {
-    if (currentMode === "adult") {
-      serviceTitle.textContent = "Internal Medicine Resident";
-      serviceLabel.textContent = "Internal Medicine Resident's Name";
-    } else {
-      serviceTitle.textContent = "Pediatrics Resident";
-      serviceLabel.textContent = "Pediatrics Resident's Name";
-    }
-    serviceCard.style.display = "block";
-  } else {
-    serviceCard.style.display = "none";
-    serviceNameInput.value = "";
-  }
+// 🔴 NEW: Show extra resident section only if drug is restricted
+const list = DRUG_LISTS[currentMode] || [];
+const f = list.find(x => x.value === val);
+
+// Update drug type box
+if (f) {
+  document.getElementById("drugTypeBox").value =
+    f.type === "restricted" ? "Restricted" : "Monitored";
+} else {
+  document.getElementById("drugTypeBox").value = "";
 }
+
+if (f && f.type === "restricted") {
+  if (currentMode === "adult") {
+    serviceTitle.textContent = "Internal Medicine Resident";
+    serviceLabel.textContent = "Internal Medicine Resident's Name";
+  } else {
+    serviceTitle.textContent = "Pediatrics Resident";
+    serviceLabel.textContent = "Pediatrics Resident's Name";
+  }
+
+  serviceCard.style.display = "block";
+} else {
+  serviceCard.style.display = "none";
+  serviceNameInput.value = "";
+}
+
 
 
 
