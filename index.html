@@ -1092,6 +1092,8 @@ if (f && f.type === "restricted") {
         <div class="summary-row"><span class="summary-label">Resident:</span> ${document.getElementById("residentName").value || "—"}</div>
         <div class="summary-row"><span class="summary-label">Clinical Dept:</span> ${document.getElementById("clinicalDept").value || "—"}</div>
         <div class="summary-row"><span class="summary-label">Date:</span> ${document.getElementById("reqDate").value || "—"}</div>
+        <div class="summary-row"><span class="summary-label">ID Specialist:</span> ${document.getElementById("idsSelect")?.value || "—"}</div>
+
       `;
     }
 
@@ -1135,6 +1137,7 @@ function collectPayload() {
     dose: document.getElementById("dose").value || "",
     frequency: document.getElementById("frequency").value || "",
     duration: document.getElementById("duration").value || "",
+    idSpecialist: document.getElementById("idsSelect")?.value || "",
     indication: selectedIndication,
     specimen: document.getElementById("specimen").value || "",
     previousAntibiotics: [],
