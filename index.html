@@ -554,6 +554,14 @@
               <label id="serviceResidentLabel">Internal Medicine Resident's Name</label>
               <input type="text" id="serviceResidentName" />
             </div>
+        
+            <!-- NEW FIELD: Infectious Disease Specialist -->
+            <div class="field">
+              <label>Infectious Diseases Specialist</label>
+              <select id="idsSelect">
+                <option value="">Select</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -815,6 +823,7 @@ function onDrugChange() {
   const serviceTitle = document.getElementById("serviceResidentTitle");
   const serviceLabel = document.getElementById("serviceResidentLabel");
   const serviceNameInput = document.getElementById("serviceResidentName");
+  const idsSelect = document.getElementById("idsSelect");
 
   // Reset service resident section by default
   serviceCard.style.display = "none";
@@ -875,18 +884,34 @@ if (f) {
 }
 
 if (f && f.type === "restricted") {
+  // Update resident heading
   if (currentMode === "adult") {
     serviceTitle.textContent = "Internal Medicine Resident";
     serviceLabel.textContent = "Internal Medicine Resident's Name";
+
+    // Populate ID specialists for IM
+    idsSelect.innerHTML = `
+      <option value="">Select</option>
+      <option>Dr. Christopher John Tibayan</option>
+      <option>Dr. Paulo Garcia</option>
+      <option>Dr. Jelly Ann Gozun-Recuenco</option>
+    `;
   } else {
     serviceTitle.textContent = "Pediatrics Resident";
     serviceLabel.textContent = "Pediatrics Resident's Name";
+
+    // Populate ID specialists for Pedia
+    idsSelect.innerHTML = `
+      <option value="">Select</option>
+      <option>Dr. Michelle Carandang-Cuvin</option>
+    `;
   }
 
   serviceCard.style.display = "block";
 } else {
   serviceCard.style.display = "none";
   serviceNameInput.value = "";
+  idsSelect.innerHTML = `<option value="">Select</option>`;
 }
 }
 
