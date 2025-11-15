@@ -520,6 +520,25 @@
           <div id="organismContainer"></div>
           <button type="button" class="icon-btn" id="addOrganism">➕ Add Organism</button>
         </div>
+
+        <!-- NEW SECTION: Resident + Clinical Department + Date -->
+        <div class="card">
+          <h2>Resident & Department</h2>
+          <div class="field-row">
+            <div class="field">
+              <label>Resident's Name</label>
+              <input type="text" id="residentName" />
+            </div>
+            <div class="field">
+              <label>Clinical Department</label>
+              <input type="text" id="clinicalDept" />
+            </div>
+            <div class="field">
+              <label>Date</label>
+              <input type="date" id="reqDate" />
+            </div>
+          </div>
+        </div>
       </div>
 
       <div>
@@ -942,6 +961,13 @@ function buildDrugListFromMonographs() {
       const sgpt = document.getElementById("sgpt").value || "—";
 
       const drug = document.getElementById("antimicrobialSelect").value || "—";
+      const drugType = (() => {
+        const list = DRUG_LISTS[currentMode] || [];
+        const f = list.find(x => x.value === drug);
+        return f ? (f.type === "restricted" ? "Restricted" : "Monitored") : "—";
+      })();
+
+       "—";
       const dose = document.getElementById("dose").value || "—";
       const freq = document.getElementById("frequency").value || "—";
       const dur = document.getElementById("duration").value || "—";
@@ -985,13 +1011,17 @@ function buildDrugListFromMonographs() {
         <div class="summary-row"><span class="summary-label">Creatinine / eGFR:</span> Scr ${scr} mg/dL; ${egfr}</div>
         <div class="summary-row"><span class="summary-label">SGPT:</span> ${sgpt}</div>
         <hr />
-        <div class="summary-row"><span class="summary-label">Antimicrobial:</span> ${drug}</div>
+        <div class="summary-row"><span class="summary-label">Antimicrobial:</span> ${drug} <span class="pill">${drugType}</span></div>
         <div class="summary-row"><span class="summary-label">Dose / Frequency / Duration:</span> ${dose} / ${freq} / ${dur}</div>
         <div class="summary-row"><span class="summary-label">Indication:</span> ${ind}</div>
         <hr />
         <div class="summary-row"><span class="summary-label">Previous / Current Antibiotics:</span> ${prevAbx.length ? prevAbx.join("; ") : "None listed"}</div>
         <div class="summary-row"><span class="summary-label">Specimen:</span> ${specimen}</div>
-        <div class="summary-row"><span class="summary-label">Organisms &amp; Susceptibilities:</span> ${orgs.length ? orgs.join(" | ") : "None listed"}</div>
+        <div class="summary-row"><span class="summary-label">Organisms</span>: ${orgs.length ? orgs.join(" | ") : "None listed"}</div>
+        <hr />
+        <div class="summary-row"><span class="summary-label">Resident:</span> ${document.getElementById("residentName").value || "—"}</div>
+        <div class="summary-row"><span class="summary-label">Clinical Dept:</span> ${document.getElementById("clinicalDept").value || "—"}</div>
+        <div class="summary-row"><span class="summary-label">Date:</span> ${document.getElementById("reqDate").value || "—"}</div> &amp; Susceptibilities:</span> ${orgs.length ? orgs.join(" | ") : "None listed"}</div>
       `;
     }
 
@@ -1061,7 +1091,15 @@ function buildDrugListFromMonographs() {
           const res = suscRows[i + 1]?.value || "";
           if (drugName || res) suscList.push({ drug: drugName, result: res });
         }
-        if (orgName || suscList.length) payload.organisms.push({ name: orgName, susceptibilities: suscList });
+        if (orgName || suscList.length) payload.residentName = document.getElementById("residentName").value || "";
+      payload.clinicalDept = document.getElementById("clinicalDept").value || "";
+      payload.reqDate = document.getElementById("reqDate").value || "";
+
+      payload.residentName = document.getElementById("residentName").value || "";
+      payload.clinicalDept = document.getElementById("clinicalDept").value || "";
+      payload.reqDate = document.getElementById("reqDate").value || "";
+
+      payload.organisms.push({ name: orgName, susceptibilities: suscList });
       });
 
       payload.timestamp = new Date().toISOString();
