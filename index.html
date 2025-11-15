@@ -376,21 +376,11 @@
     <div class="card">
       <h2>Patient Information</h2>
       <div class="field-row">
-            <div class="field" style="flex: 1 1 100%;">
-              <label>Antimicrobial<\/label>
-              <select id="antimicrobialSelect">
-                <option value="">Select drug<\/option>
-              <\/select>
-            <\/div>
-          <\/div>
-
-          <!-- NEW READONLY DRUG TYPE DISPLAY -->
-          <div class="field-row">
-            <div class="field" style="flex: 1 1 100%;">
-              <label>Drug Type (Auto)<\/label>
-              <div class="readonly-box" id="drugTypeBox">—<\/div>
-            <\/div>
-          <\/div>
+        <div class="field">
+          <label>Patient Name</label>
+          <input type="text" id="patientName" />
+        </div>
+      </div>
       <div class="field-row">
         <div class="field">
           <label>Age (years)</label>
@@ -467,6 +457,12 @@
               <select id="antimicrobialSelect">
                 <option value="">Select drug</option>
               </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field" style="flex: 1 1 100%;">
+              <label>Drug Type</label>
+              <input type="text" id="drugTypeBox" readonly />
             </div>
           </div>
 
@@ -797,63 +793,67 @@ function buildDrugListFromMonographs() {
       return egfr;
     }
 
-    function onDrugChange() {
-      const sel = document.getElementById("antimicrobialSelect");
-      const val = sel.value;
-      const dosingSection = document.getElementById("dosingSection");
-      const monographBox = document.getElementById("monographBox");
-      const pediaCalcCard = document.getElementById("pediaCalcCard");
+function onDrugChange() {
+  const sel = document.getElementById("antimicrobialSelect");
+  const val = sel.value;
+  const dosingSection = document.getElementById("dosingSection");
+  const monographBox = document.getElementById("monographBox");
+  const pediaCalcCard = document.getElementById("pediaCalcCard");
+  const drugTypeBox = document.getElementById("drugTypeBox");
 
-      if (!val) {
-        dosingSection.style.display = "none";
-        monographBox.innerHTML = "<p>Select an antimicrobial to view its monograph here. Adult and Pediatric content will differ based on the selected mode.</p>";
-        pediaCalcCard.style.display = "none";
-        return;
-      }
+  if (!val) {
+    dosingSection.style.display = "none";
+    monographBox.innerHTML = "<p>Select an antimicrobial to view its monograph here. Adult and Pediatric content will differ based on the selected mode.</p>";
+    pediaCalcCard.style.display = "none";
+    if (drugTypeBox) drugTypeBox.value = "";
+    return;
+  }
 
-      const isPedia = currentMode === "pediatric";
-      const mono = isPedia
-        ? ((typeof PEDIATRIC_MONOGRAPHS === "object" && PEDIATRIC_MONOGRAPHS[val]) || (typeof ADULT_MONOGRAPHS === "object" && ADULT_MONOGRAPHS[val]))
-        : ((typeof ADULT_MONOGRAPHS === "object" && ADULT_MONOGRAPHS[val]) || (typeof PEDIATRIC_MONOGRAPHS === "object" && PEDIATRIC_MONOGRAPHS[val]));
+  const isPedia = currentMode === "pediatric";
+  const mono = isPedia
+    ? ((typeof PEDIATRIC_MONOGRAPHS === "object" && PEDIATRIC_MONOGRAPHS[val]) ||
+       (typeof ADULT_MONOGRAPHS === "object" && ADULT_MONOGRAPHS[val]))
+    : ((typeof ADULT_MONOGRAPHS === "object" && ADULT_MONOGRAPHS[val]) ||
+       (typeof PEDIATRIC_MONOGRAPHS === "object" && PEDIATRIC_MONOGRAPHS[val]));
 
-      if (!mono) {
-        dosingSection.style.display = "none";
-        monographBox.innerHTML = `<p><strong>${val}</strong>: No monograph data found. Verify adult_monographs.js / pediatric_monographs.js.</p>`;
-        pediaCalcCard.style.display = "none";
-        return;
-      }
+  // Set drug type textbox (Restricted / Monitored) based on DRUG_LISTS
+  if (drugTypeBox) {
+    const list = DRUG_LISTS[currentMode] || [];
+    const f = list.find(x => x.value === val);
+    const drugType = f ? (f.type === "restricted" ? "Restricted" : "Monitored") : "";
+    drugTypeBox.value = drugType;
+  }
 
-      const m = mono;
-      dosingSection.style.display = "block";
+  if (!mono) {
+    dosingSection.style.display = "none";
+    monographBox.innerHTML = `<p><strong>${val}</strong>: No monograph data found. Verify adult_monographs.js / pediatric_monographs.js.</p>`;
+    pediaCalcCard.style.display = "none";
+    return;
+  }
 
-      const parts = [];
-      if (m.dosing) parts.push(`<strong>Dosing:</strong> ${m.dosing}`);
-      if (m.renal) parts.push(`<strong>Renal adjustment:</strong> ${m.renal}`);
-      if (m.hepatic) parts.push(`<strong>Hepatic adjustment:</strong> ${m.hepatic}`);
-      if (m.duration) parts.push(`<strong>Typical duration:</strong> ${m.duration}`);
-      if (m.monitoring) parts.push(`<strong>Monitoring:</strong> ${m.monitoring}`);
-      if (m.warnings) parts.push(`<strong>Warnings:</strong> ${m.warnings}`);
-      if (m.ams) parts.push(`<strong>AMS notes:</strong> ${m.ams}`);
+  const m = mono;
+  dosingSection.style.display = "block";
 
-      let html = "";
-      html += `<h3>${val} – ${isPedia ? "Pediatric" : "Adult"} Monograph</h3>`;
-      if (m.spectrum) html += `<p><strong>Spectrum:</strong> ${m.spectrum}</p>`;
-      if (m.dosing) html += `<p><strong>Dosing:</strong> ${m.dosing}</p>`;
-      if (m.renal) html += `<p><strong>Renal adjustment:</strong> ${m.renal}</p>`;
-      if (m.hepatic) html += `<p><strong>Hepatic adjustment:</strong> ${m.hepatic}</p>`;
-      if (m.duration) html += `<p><strong>Typical duration:</strong> ${m.duration}</p>`;
-      if (m.monitoring) html += `<p><strong>Monitoring:</strong> ${m.monitoring}</p>`;
-      if (m.warnings) html += `<p><strong>Warnings:</strong> ${m.warnings}</p>`;
-      if (m.ams) html += `<p><strong>AMS notes:</strong> ${m.ams}</p>`;
-      monographBox.innerHTML = html;
+  let html = "";
+  html += `<h3>${val} – ${isPedia ? "Pediatric" : "Adult"} Monograph</h3>`;
+  if (m.spectrum) html += `<p><strong>Spectrum:</strong> ${m.spectrum}</p>`;
+  if (m.dosing) html += `<p><strong>Dosing:</strong> ${m.dosing}</p>`;
+  if (m.renal) html += `<p><strong>Renal adjustment:</strong> ${m.renal}</p>`;
+  if (m.hepatic) html += `<p><strong>Hepatic adjustment:</strong> ${m.hepatic}</p>`;
+  if (m.duration) html += `<p><strong>Typical duration:</strong> ${m.duration}</p>`;
+  if (m.monitoring) html += `<p><strong>Monitoring:</strong> ${m.monitoring}</p>`;
+  if (m.warnings) html += `<p><strong>Warnings:</strong> ${m.warnings}</p>`;
+  if (m.ams) html += `<p><strong>AMS notes:</strong> ${m.ams}</p>`;
+  monographBox.innerHTML = html;
 
-      if (isPedia && m.weightBased && m.mgPerKgDose) {
-        pediaCalcCard.style.display = "block";
-        updatePediaCalc(val);
-      } else {
-        pediaCalcCard.style.display = "none";
-      }
-    }
+  if (isPedia && m.weightBased && m.mgPerKgDose) {
+    pediaCalcCard.style.display = "block";
+    updatePediaCalc(val);
+  } else {
+    pediaCalcCard.style.display = "none";
+  }
+}
+
 
     function updatePediaCalc(drugName) {
       if (typeof PEDIATRIC_MONOGRAPHS !== "object") return;
