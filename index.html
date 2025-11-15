@@ -1081,69 +1081,78 @@ function onDrugChange() {
       }
     }
 
-    function collectPayload() {
-      const payload = {
-        mode: currentMode,
-        patientName: document.getElementById("patientName").value || "",
-        age: document.getElementById("age").value || "",
-        sex: document.getElementById("sex").value || "",
-        weightKg: document.getElementById("weight").value || "",
-        heightCm: currentMode === "pediatric" ? (document.getElementById("height").value || "") : "",
-        hospitalNumber: document.getElementById("hospitalNumber").value || "",
-        ward: document.getElementById("ward").value || "",
-        physician: document.getElementById("physician").value || "",
-        diagnosis: document.getElementById("diagnosis").value || "",
-        scrMgDl: document.getElementById("scr").value || "",
-        sgpt: document.getElementById("sgpt").value || "",
-        egfrText: document.getElementById("egfrBox").textContent || "",
-        antimicrobial: document.getElementById("antimicrobialSelect").value || "",
-        dose: document.getElementById("dose").value || "",
-        frequency: document.getElementById("frequency").value || "",
-        duration: document.getElementById("duration").value || "",
-        indication: selectedIndication,
-        specimen: document.getElementById("specimen").value || "",
-        previousAntibiotics: [],
-        organisms: []
-      };
+function collectPayload() {
+  const payload = {
+    mode: currentMode,
+    patientName: document.getElementById("patientName").value || "",
+    age: document.getElementById("age").value || "",
+    sex: document.getElementById("sex").value || "",
+    weightKg: document.getElementById("weight").value || "",
+    heightCm: currentMode === "pediatric" ? (document.getElementById("height").value || "") : "",
+    hospitalNumber: document.getElementById("hospitalNumber").value || "",
+    ward: document.getElementById("ward").value || "",
+    physician: document.getElementById("physician").value || "",
+    diagnosis: document.getElementById("diagnosis").value || "",
+    scrMgDl: document.getElementById("scr").value || "",
+    sgpt: document.getElementById("sgpt").value || "",
+    egfrText: document.getElementById("egfrBox").textContent || "",
+    antimicrobial: document.getElementById("antimicrobialSelect").value || "",
+    dose: document.getElementById("dose").value || "",
+    frequency: document.getElementById("frequency").value || "",
+    duration: document.getElementById("duration").value || "",
+    indication: selectedIndication,
+    specimen: document.getElementById("specimen").value || "",
+    previousAntibiotics: [],
+    organisms: []
+  };
 
-      document.querySelectorAll("#prevAbxContainer .dyn-row").forEach(row => {
-        const inputs = row.querySelectorAll("input");
-        if (inputs.length >= 3) {
-          const d = inputs[0].value.trim();
-          const f = inputs[1].value.trim();
-          const du = inputs[2].value.trim();
-          if (d || f || du) payload.previousAntibiotics.push({ drug: d, frequency: f, duration: du });
-        }
-      });
+  // Previous antibiotics
+  document.querySelectorAll("#prevAbxContainer .dyn-row").forEach(row => {
+    const inputs = row.querySelectorAll("input");
+    if (inputs.length >= 3) {
+      const d = inputs[0].value.trim();
+      const f = inputs[1].value.trim();
+      const du = inputs[2].value.trim();
+      if (d || f || du) {
+        payload.previousAntibiotics.push({ drug: d, frequency: f, duration: du });
+      }
+    }
+  });
 
-      document.querySelectorAll("#organismContainer .organism-block").forEach(block => {
-        const nameInput = block.querySelector("input[type='text']");
-        const orgName = nameInput?.value || "";
-        const suscRows = block.querySelectorAll(".dyn-row input, .dyn-row select");
-        const suscList = [];
-        for (let i = 0; i < suscRows.length; i += 2) {
-          const drugName = suscRows[i].value || "";
-          const res = suscRows[i + 1]?.value || "";
-          if (drugName || res) suscList.push({ drug: drugName, result: res });
-        }
-        if (orgName || suscList.length) 
-      payload.residentName = document.getElementById("residentName").value || "";
-      payload.clinicalDept = document.getElementById("clinicalDept").value || "";
-      payload.reqDate = document.getElementById("reqDate").value || "";
+  // Organisms + susceptibilities
+  document.querySelectorAll("#organismContainer .organism-block").forEach(block => {
+    const nameInput = block.querySelector("input[type='text']");
+    const orgName = nameInput?.value || "";
+    const suscRows = block.querySelectorAll(".dyn-row input, .dyn-row select");
+    const suscList = [];
 
-      payload.organisms.push({ name: orgName, susceptibilities: suscList });
-      });
-
-      // Add drugType (Monitored/Restricted)
-      const list = DRUG_LISTS[currentMode] || [];
-      const f = list.find(x => x.value === payload.antimicrobial);
-      payload.drugType = f ? (f.type === "restricted" ? "Restricted" : "Monitored") : "";
-
-      payload.timestamp = new Date().toISOString();
-      return payload;
+    for (let i = 0; i < suscRows.length; i += 2) {
+      const drugName = suscRows[i].value || "";
+      const res = suscRows[i + 1]?.value || "";
+      if (drugName || res) suscList.push({ drug: drugName, result: res });
     }
 
-      payload.serviceResidentName = document.getElementById("serviceResidentName").value || "";
+    if (orgName || suscList.length) {
+      payload.organisms.push({ name: orgName, susceptibilities: suscList });
+    }
+  });
+
+  // Resident section (correct placement)
+  payload.residentName = document.getElementById("residentName").value || "";
+  payload.clinicalDept = document.getElementById("clinicalDept").value || "";
+  payload.reqDate = document.getElementById("reqDate").value || "";
+
+  // Service resident (restricted-only)
+  payload.serviceResidentName = document.getElementById("serviceResidentName").value || "";
+
+  // Add drugType
+  const list = DRUG_LISTS[currentMode] || [];
+  const f = list.find(x => x.value === payload.antimicrobial);
+  payload.drugType = f ? (f.type === "restricted" ? "Restricted" : "Monitored") : "";
+
+  payload.timestamp = new Date().toISOString();
+  return payload;
+}
 
     // PDF placeholder
     document.getElementById("downloadPdfBtn").addEventListener("click", () => {
