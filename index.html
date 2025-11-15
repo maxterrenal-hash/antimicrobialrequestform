@@ -672,6 +672,11 @@ function buildDrugListFromMonographs() {
     function init() {
       tryBuildDrugList();
 
+      document.getElementById("submitBtn").addEventListener("click", () => {
+        if (!validateForm()) return;
+        openReviewModal();
+      });
+
       // Mode toggle
       document.querySelectorAll("#modeToggle .toggle-btn").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -1008,6 +1013,74 @@ if (f && f.type === "restricted") {
       container.appendChild(block);
     }
 
+    function validateForm() {
+      const required = {
+        patientName: "Patient Name",
+        age: "Age",
+        sex: "Sex",
+        weight: "Weight",
+        hospitalNumber: "Hospital Number",
+        ward: "Ward",
+        diagnosis: "Diagnosis",
+        antimicrobialSelect: "Antimicrobial",
+        dose: "Dose",
+        frequency: "Frequency",
+        duration: "Duration",
+        scr: "Serum Creatinine",
+        residentName: "Resident's Name",
+        clinicalDept: "Clinical Department",
+        reqDate: "Date"
+      };
+    
+      for (const id in required) {
+        const el = document.getElementById(id);
+        if (!el.value || el.value.trim() === "") {
+          alert(required[id] + " is required.");
+          el.focus();
+          return false;
+        }
+      }
+    
+      // Pediatric-specific
+      if (currentMode === "pediatric") {
+        const ht = document.getElementById("height");
+        if (!ht.value || ht.value.trim() === "") {
+          alert("Height is required for Pediatric patients.");
+          ht.focus();
+          return false;
+        }
+      }
+    
+      // Restricted-specific
+      const drug = document.getElementById("antimicrobialSelect").value;
+      const f = (DRUG_LISTS[currentMode] || []).find(x => x.value === drug);
+    
+      if (f && f.type === "restricted") {
+        const srv = document.getElementById("serviceResidentName");
+        const ids = document.getElementById("idsSelect");
+    
+        if (!srv.value || srv.value.trim() === "") {
+          alert(
+            (currentMode === "adult"
+              ? "Internal Medicine Resident"
+              : "Pediatrics Resident") + " is required for restricted drugs."
+          );
+          srv.focus();
+          return false;
+        }
+    
+        if (!ids.value || ids.value.trim() === "") {
+          alert("Infectious Diseases Specialist is required for restricted drugs.");
+          ids.focus();
+          return false;
+        }
+      }
+    
+      return true;
+    }
+
+
+    
     function openReviewModal() {
       const summary = buildSummary();
       document.getElementById("summaryBody").innerHTML = summary;
