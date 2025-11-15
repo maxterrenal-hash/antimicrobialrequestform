@@ -715,10 +715,6 @@ function buildDrugListFromMonographs() {
         });
       });
 
-      // Submit → always review first
-      document.getElementById("submitBtn").addEventListener("click", () => {
-        openReviewModal();
-      });
 
       document.getElementById("modalClose").addEventListener("click", closeModal);
       document.getElementById("modalConfirm").addEventListener("click", submitForm);
