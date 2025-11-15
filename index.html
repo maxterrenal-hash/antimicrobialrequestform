@@ -413,7 +413,7 @@
           <input type="text" id="ward" />
         </div>
       </div>
-      <div class="field-row">
+      <div class="field-row" style="display:none;">
         <div class="field">
           <label>Requesting Physician</label>
           <input type="text" id="physician" />
@@ -578,7 +578,7 @@
 
   <script>
     // === CONFIG ===
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbys_YQvE3hS-Aove8j-r3lmjI6MbyqFjyGlbTh0fSKKFl51w12fsS89fJmsS4DuyGWQ/exec"; // TODO: replace with your Apps Script URL
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_YeaQMCQTff-1rlyx1Ot-t4gPRcDtF-3jkezjKVNorSiYbM_-BBObQng9AOF0U-1b/exec"; // TODO: replace with your Apps Script URL
 
     // DRUG_LISTS will be built dynamically from the monograph files.
     const DRUG_LISTS = {
@@ -1101,6 +1101,11 @@ function buildDrugListFromMonographs() {
 
       payload.organisms.push({ name: orgName, susceptibilities: suscList });
       });
+
+      // Add drugType (Monitored/Restricted)
+      const list = DRUG_LISTS[currentMode] || [];
+      const f = list.find(x => x.value === payload.antimicrobial);
+      payload.drugType = f ? (f.type === "restricted" ? "Restricted" : "Monitored") : "";
 
       payload.timestamp = new Date().toISOString();
       return payload;
