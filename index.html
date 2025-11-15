@@ -1258,7 +1258,10 @@ function collectPayload() {
   const f = list.find(x => x.value === payload.antimicrobial);
   payload.drugType = f ? (f.type === "restricted" ? "Restricted" : "Monitored") : "";
 
-  payload.timestamp = new Date().toISOString();
+const now = new Date();
+payload.timestamp = now.toLocaleString("en-PH", {
+  timeZone: "Asia/Manila"
+});
   return payload;
 }
 
