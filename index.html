@@ -460,6 +460,21 @@
             </div>
           </div>
 
+          <!-- NEW: Drug Type Display -->
+          <div class="field-row">
+            <div class="field" style="flex:1 1 100%;">
+              <label>Drug Type (Auto)</label>
+              <input type="text" id="drugTypeBox" readonly style="background:#f3f4f6; font-weight:600;" />
+            </div>
+          </div>
+
+          <div id="dosingSection" style="display:none;">/label>
+              <select id="antimicrobialSelect">
+                <option value="">Select drug</option>
+              </select>
+            </div>
+          </div>
+
           <div id="dosingSection" style="display:none;">
             <div class="field-row">
               <div class="field">
@@ -787,6 +802,15 @@ function buildDrugListFromMonographs() {
       return egfr;
     }
 
+    // Update drug type box
+    function updateDrugTypeBox(val){
+      const box = document.getElementById('drugTypeBox');
+      if(!val){ box.value = ""; return; }
+      const list = DRUG_LISTS[currentMode] || [];
+      const f = list.find(x => x.value === val);
+      box.value = f ? (f.type === 'restricted' ? 'Restricted' : 'Monitored') : '';
+    }
+
     function onDrugChange() {
       const sel = document.getElementById("antimicrobialSelect");
       const val = sel.value;
@@ -795,6 +819,7 @@ function buildDrugListFromMonographs() {
       const pediaCalcCard = document.getElementById("pediaCalcCard");
 
       if (!val) {
+        updateDrugTypeBox("");
         dosingSection.style.display = "none";
         monographBox.innerHTML = "<p>Select an antimicrobial to view its monograph here. Adult and Pediatric content will differ based on the selected mode.</p>";
         pediaCalcCard.style.display = "none";
@@ -813,6 +838,7 @@ function buildDrugListFromMonographs() {
         return;
       }
 
+      updateDrugTypeBox(val);
       const m = mono;
       dosingSection.style.display = "block";
 
