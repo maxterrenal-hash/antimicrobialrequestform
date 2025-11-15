@@ -559,7 +559,7 @@
 
   <script>
     // === CONFIG ===
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwlBQ8Gl_kyc08tz8wvdWLhK-5GvWybJJrx7X9c5zibKqQ7Ff5l5tuozWt-iF_UEVp1/exec"; // TODO: replace with your Apps Script URL
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw5FBLd9Z6KXoTMSGZMTKNjJMPfBol0LiQx4rI69M_cQ_hygRDKpJWgCHF9XocSCwbV/exec"; // TODO: replace with your Apps Script URL
 
     // DRUG_LISTS will be built dynamically from the monograph files.
     const DRUG_LISTS = {
@@ -1000,7 +1000,7 @@ function buildDrugListFromMonographs() {
 
       const payload = collectPayload();
 
-      if (!SCRIPT_URL || SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbwlBQ8Gl_kyc08tz8wvdWLhK-5GvWybJJrx7X9c5zibKqQ7Ff5l5tuozWt-iF_UEVp1/exec")) {
+      if (!SCRIPT_URL || SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbw5FBLd9Z6KXoTMSGZMTKNjJMPfBol0LiQx4rI69M_cQ_hygRDKpJWgCHF9XocSCwbV/exec")) {
         alert("Form payload built. Please configure SCRIPT_URL with your Google Apps Script Web App URL to enable submission. Open console to inspect payload.");
         console.log("Payload", payload);
         return;
