@@ -527,9 +527,9 @@
           <button type="button" class="icon-btn" id="addOrganism">➕ Add Organism</button>
         </div>
 
-        <!-- NEW SECTION: Resident + Clinical Department + Date -->
+        <!-- NEW SECTION: Requesting Resident + Clinical Department + Date -->
         <div class="card">
-          <h2>Resident & Department</h2>
+          <h2>Requesting Resident &amp; Department</h2>
           <div class="field-row">
             <div class="field">
               <label>Resident's Name</label>
@@ -542,6 +542,17 @@
             <div class="field">
               <label>Date</label>
               <input type="date" id="reqDate" />
+            </div>
+          </div>
+        </div>
+        
+        <!-- CONDITIONAL SECTION: Service Resident for restricted antimicrobials -->
+        <div class="card" id="serviceResidentCard" style="display:none;">
+          <h2 id="serviceResidentTitle">Internal Medicine Resident</h2>
+          <div class="field-row">
+            <div class="field">
+              <label id="serviceResidentLabel">Internal Medicine Resident's Name</label>
+              <input type="text" id="serviceResidentName" />
             </div>
           </div>
         </div>
@@ -799,30 +810,27 @@ function onDrugChange() {
   const dosingSection = document.getElementById("dosingSection");
   const monographBox = document.getElementById("monographBox");
   const pediaCalcCard = document.getElementById("pediaCalcCard");
-  const drugTypeBox = document.getElementById("drugTypeBox");
+
+  const serviceCard = document.getElementById("serviceResidentCard");
+  const serviceTitle = document.getElementById("serviceResidentTitle");
+  const serviceLabel = document.getElementById("serviceResidentLabel");
+  const serviceNameInput = document.getElementById("serviceResidentName");
+
+  // Reset service resident section by default
+  serviceCard.style.display = "none";
+  serviceNameInput.value = "";
 
   if (!val) {
     dosingSection.style.display = "none";
     monographBox.innerHTML = "<p>Select an antimicrobial to view its monograph here. Adult and Pediatric content will differ based on the selected mode.</p>";
     pediaCalcCard.style.display = "none";
-    if (drugTypeBox) drugTypeBox.value = "";
     return;
   }
 
   const isPedia = currentMode === "pediatric";
   const mono = isPedia
-    ? ((typeof PEDIATRIC_MONOGRAPHS === "object" && PEDIATRIC_MONOGRAPHS[val]) ||
-       (typeof ADULT_MONOGRAPHS === "object" && ADULT_MONOGRAPHS[val]))
-    : ((typeof ADULT_MONOGRAPHS === "object" && ADULT_MONOGRAPHS[val]) ||
-       (typeof PEDIATRIC_MONOGRAPHS === "object" && PEDIATRIC_MONOGRAPHS[val]));
-
-  // Set drug type textbox (Restricted / Monitored) based on DRUG_LISTS
-  if (drugTypeBox) {
-    const list = DRUG_LISTS[currentMode] || [];
-    const f = list.find(x => x.value === val);
-    const drugType = f ? (f.type === "restricted" ? "Restricted" : "Monitored") : "";
-    drugTypeBox.value = drugType;
-  }
+    ? ((typeof PEDIATRIC_MONOGRAPHS === "object" && PEDIATRIC_MONOGRAPHS[val]) || (typeof ADULT_MONOGRAPHS === "object" && ADULT_MONOGRAPHS[val]))
+    : ((typeof ADULT_MONOGRAPHS === "object" && ADULT_MONOGRAPHS[val]) || (typeof PEDIATRIC_MONOGRAPHS === "object" && PEDIATRIC_MONOGRAPHS[val]));
 
   if (!mono) {
     dosingSection.style.display = "none";
@@ -846,13 +854,32 @@ function onDrugChange() {
   if (m.ams) html += `<p><strong>AMS notes:</strong> ${m.ams}</p>`;
   monographBox.innerHTML = html;
 
+  // Show pediatric calculator if applicable
   if (isPedia && m.weightBased && m.mgPerKgDose) {
     pediaCalcCard.style.display = "block";
     updatePediaCalc(val);
   } else {
     pediaCalcCard.style.display = "none";
   }
+
+  // 🔴 NEW: Show extra resident section only if drug is restricted
+  const list = DRUG_LISTS[currentMode] || [];
+  const f = list.find(x => x.value === val);
+  if (f && f.type === "restricted") {
+    if (currentMode === "adult") {
+      serviceTitle.textContent = "Internal Medicine Resident";
+      serviceLabel.textContent = "Internal Medicine Resident's Name";
+    } else {
+      serviceTitle.textContent = "Pediatrics Resident";
+      serviceLabel.textContent = "Pediatrics Resident's Name";
+    }
+    serviceCard.style.display = "block";
+  } else {
+    serviceCard.style.display = "none";
+    serviceNameInput.value = "";
+  }
 }
+
 
 
     function updatePediaCalc(drugName) {
