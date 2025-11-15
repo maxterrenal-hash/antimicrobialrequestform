@@ -758,7 +758,7 @@ function buildDrugListFromMonographs() {
       const height = parseFloat(document.getElementById("height").value);
       const box = document.getElementById("egfrBox");
 
-      if (!age || !sex || !scr) {
+      if (isNaN(age) || !sex || isNaN(scr)) {
         box.textContent = "—";
         return;
       }
@@ -1056,7 +1056,7 @@ function onDrugChange() {
         <hr />
         <div class="summary-row"><span class="summary-label">Resident:</span> ${document.getElementById("residentName").value || "—"}</div>
         <div class="summary-row"><span class="summary-label">Clinical Dept:</span> ${document.getElementById("clinicalDept").value || "—"}</div>
-        <div class="summary-row"><span class="summary-label">Date:</span> ${document.getElementById("reqDate").value || "—"}</div>:</span> ${orgs.length ? orgs.join(" | ") : "None listed"}</div>
+        <div class="summary-row"><span class="summary-label">Date:</span> ${document.getElementById("reqDate").value || "—"}</div>
       `;
     }
 
@@ -1126,10 +1126,7 @@ function onDrugChange() {
           const res = suscRows[i + 1]?.value || "";
           if (drugName || res) suscList.push({ drug: drugName, result: res });
         }
-        if (orgName || suscList.length) payload.residentName = document.getElementById("residentName").value || "";
-      payload.clinicalDept = document.getElementById("clinicalDept").value || "";
-      payload.reqDate = document.getElementById("reqDate").value || "";
-
+        if (orgName || suscList.length) 
       payload.residentName = document.getElementById("residentName").value || "";
       payload.clinicalDept = document.getElementById("clinicalDept").value || "";
       payload.reqDate = document.getElementById("reqDate").value || "";
@@ -1145,6 +1142,8 @@ function onDrugChange() {
       payload.timestamp = new Date().toISOString();
       return payload;
     }
+
+      payload.serviceResidentName = document.getElementById("serviceResidentName").value || "";
 
     // PDF placeholder
     document.getElementById("downloadPdfBtn").addEventListener("click", () => {
