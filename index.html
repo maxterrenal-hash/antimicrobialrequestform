@@ -415,7 +415,7 @@
       </div>
       <div class="field-row" style="display:none;">
         <div class="field">
-          <label>Requesting Physician</label>
+          <label>Requesting (Removed Requesting Physician)</label>
           <input type="text" id="physician" />
         </div>
       </div>
@@ -966,8 +966,6 @@ function buildDrugListFromMonographs() {
         const f = list.find(x => x.value === drug);
         return f ? (f.type === "restricted" ? "Restricted" : "Monitored") : "—";
       })();
-
-       "—";
       const dose = document.getElementById("dose").value || "—";
       const freq = document.getElementById("frequency").value || "—";
       const dur = document.getElementById("duration").value || "—";
@@ -1021,7 +1019,7 @@ function buildDrugListFromMonographs() {
         <hr />
         <div class="summary-row"><span class="summary-label">Resident:</span> ${document.getElementById("residentName").value || "—"}</div>
         <div class="summary-row"><span class="summary-label">Clinical Dept:</span> ${document.getElementById("clinicalDept").value || "—"}</div>
-        <div class="summary-row"><span class="summary-label">Date:</span> ${document.getElementById("reqDate").value || "—"}</div> &amp; Susceptibilities:</span> ${orgs.length ? orgs.join(" | ") : "None listed"}</div>
+        <div class="summary-row"><span class="summary-label">Date:</span> ${document.getElementById("reqDate").value || "—"}</div>:</span> ${orgs.length ? orgs.join(" | ") : "None listed"}</div>
       `;
     }
 
