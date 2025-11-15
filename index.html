@@ -1037,6 +1037,12 @@ if (f && f.type === "restricted") {
         }
       }
     
+      // Require indication
+      if (!selectedIndication || selectedIndication.trim() === "") {
+        alert("Indication is required (Empiric, Prophylactic, or Therapeutic).");
+        return false;
+      }
+
       // Pediatric-specific
       if (currentMode === "pediatric") {
         const ht = document.getElementById("height");
