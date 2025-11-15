@@ -1,7 +1,6 @@
 // adult_monographs.js
 // Full adult antimicrobial monographs for Ospital ng Makati AMS app.
-// IMPORTANT: Verify all data against Sanford Guide / PSMID / local OsMak AMS
-// before any clinical use. This is decision-support scaffolding only.
+// IMPORTANT: Verify all data against Sanford Guide / PSMID / local OsMak AMS before clinical use.
 
 const ADULT_MONOGRAPHS = {
 
@@ -10,6 +9,7 @@ const ADULT_MONOGRAPHS = {
   // ======================================
 
   "Acyclovir IV": {
+    restricted: true,
     spectrum: "HSV-1, HSV-2, VZV; limited EBV; no CMV activity.",
     dosing: "5–10 mg/kg IV q8h depending on severity (10 mg/kg q8h for encephalitis/severe VZV). Dose based on IBW for obesity.",
     renal: "Adjust interval/dose when CrCl <50 mL/min; hydrate to avoid crystal nephropathy.",
@@ -22,6 +22,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Amikacin": {
+    restricted: true,
     spectrum: "Aminoglycoside: strong Gram-negative activity including Pseudomonas; synergistic for some Gram-positive.",
     dosing: "15–20 mg/kg IV once daily (extended interval) OR 7.5 mg/kg q12h depending on institution.",
     renal: "Adjust based on CrCl and drug levels; nephro-/ototoxic.",
@@ -34,6 +35,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Amphotericin B": {
+    restricted: true,
     spectrum: "Very broad: most yeasts, molds; lipid formulations preferred (less nephrotoxic).",
     dosing: "Deoxycholate 0.5–1 mg/kg/day IV; liposomal 3–5 mg/kg/day IV.",
     renal: "Extremely nephrotoxic—monitor and prehydrate.",
@@ -46,6 +48,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Aztreonam": {
+    restricted: true,
     spectrum: "Gram-negative aerobes including Pseudomonas; NO Gram-positive or anaerobic activity.",
     dosing: "1–2 g IV q6–8h (max 8 g/day).",
     renal: "Adjust when CrCl <30 mL/min.",
@@ -58,6 +61,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Cefepime": {
+    restricted: true,
     spectrum: "4th-gen cephalosporin; strong Gram-negative including Pseudomonas; some Gram-positive.",
     dosing: "1–2 g IV q8–12h; 2 g q8h for severe infections/PSA.",
     renal: "Adjust when CrCl <60 mL/min; neurotoxicity possible.",
@@ -70,6 +74,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Ceftazidime–Avibactam (NF)": {
+    restricted: true,
     spectrum: "CRE (KPC), ESBL-producing GNB, PSA; limited Gram-positive.",
     dosing: "2.5 g IV q8h (2 hr infusion).",
     renal: "Adjust if CrCl <50 mL/min.",
@@ -82,6 +87,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Ceftolozane–Tazobactam (NF)": {
+    restricted: true,
     spectrum: "Highly active vs MDR Pseudomonas; good Gram-negative including ESBL; limited Gram-positive.",
     dosing: "1.5 g IV q8h; 3 g q8h for pneumonia.",
     renal: "Adjust if CrCl <50 mL/min.",
@@ -94,6 +100,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Colistin": {
+    restricted: true,
     spectrum: "MDR Gram-negatives: Acinetobacter, PSA, CRE (variable).",
     dosing: "Refer to institutional colistin-base-activity protocol.",
     renal: "High nephrotoxicity; adjust dosing.",
@@ -106,6 +113,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Doripenem": {
+    restricted: true,
     spectrum: "Broad carbapenem including PSA, GNB, GP, anaerobes.",
     dosing: "500 mg IV q8h (1–4 hr infusion).",
     renal: "Adjust if CrCl <50 mL/min.",
@@ -118,6 +126,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Ertapenem": {
+    restricted: true,
     spectrum: "ESBL GNB, anaerobes; NO Pseudomonas or Acinetobacter.",
     dosing: "1 g IV/IM q24h.",
     renal: "Adjust if CrCl <30 mL/min.",
@@ -130,11 +139,12 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Ganciclovir": {
+    restricted: true,
     spectrum: "CMV, HSV, VZV.",
     dosing: "5 mg/kg IV q12h induction; then 5 mg/kg/day maintenance.",
-    renal: "Strongly adjust by CrCl.",
+    renal: "Strong renal adjustment needed.",
     hepatic: "Monitor LFTs.",
-    duration: "Weeks to months depending on CMV status.",
+    duration: "Weeks to months.",
     monitoring: "CBC (neutropenia), renal, LFTs.",
     warnings: "Major bone marrow suppression.",
     ams: "Restricted to CMV treatment/prophylaxis.",
@@ -142,6 +152,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Gentamicin": {
+    restricted: true,
     spectrum: "Gram-negatives; synergy for GP.",
     dosing: "5–7 mg/kg/day IV once daily (preferred).",
     renal: "Adjust interval/dose; monitor levels.",
@@ -154,6 +165,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Imipenem": {
+    restricted: true,
     spectrum: "Very broad: GNB, GP, anaerobes; PSA; ESBL.",
     dosing: "500 mg IV q6h OR 1 g IV q8h depending on severity.",
     renal: "Adjust if CrCl <70 mL/min; seizure risk increases.",
@@ -166,6 +178,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Linezolid": {
+    restricted: true,
     spectrum: "MRSA, VRE, resistant GP.",
     dosing: "600 mg IV/PO q12h.",
     renal: "No adjustment.",
@@ -178,6 +191,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Meropenem": {
+    restricted: true,
     spectrum: "Very broad: ESBL, PSA, anaerobes.",
     dosing: "1 g IV q8h or 2 g q8h for CNS infections (extended infusion preferred).",
     renal: "Adjust if CrCl <50 mL/min.",
@@ -190,6 +204,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Micafungin": {
+    restricted: true,
     spectrum: "Candida spp., some Aspergillus activity.",
     dosing: "100 mg IV daily (up to 150 mg for esophageal candidiasis).",
     renal: "No adjustment.",
@@ -202,10 +217,11 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Polymyxin B": {
+    restricted: true,
     spectrum: "MDR GNB including PSA, A. baumannii.",
-    dosing: "Refer to institutional protocol; typically 1.25–1.5 mg/kg/day divided.",
+    dosing: "1.25–1.5 mg/kg/day divided (follow institutional protocol).",
     renal: "Less renally cleared than colistin; still monitor Cr.",
-    hepatic: "Minimal.",
+    hepatic: "Minimal adjustment.",
     duration: "7–14+ days.",
     monitoring: "Renal, neurotoxicity.",
     warnings: "Neurotoxicity; avoid unnecessary use.",
@@ -214,9 +230,10 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Remdesivir": {
+    restricted: true,
     spectrum: "SARS-CoV-2.",
     dosing: "200 mg IV once, then 100 mg IV daily x 4+ days.",
-    renal: "Avoid if eGFR <30 mL/min (SBECD carrier).",
+    renal: "Avoid if eGFR <30 mL/min due to SBECD carrier.",
     hepatic: "Avoid if ALT very high.",
     duration: "3–10 days.",
     monitoring: "LFTs.",
@@ -226,21 +243,23 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Tigecycline": {
+    restricted: true,
     spectrum: "Broad: MRSA, VRE, anaerobes, ESBL; NOT PSA.",
-    dosing: "100 mg IV load, then 50 mg q12h.",
+    dosing: "100 mg IV loading, then 50 mg IV q12h.",
     renal: "No adjustment.",
-    hepatic: "Adjust in Child-Pugh C.",
+    hepatic: "Reduce maintenance dose in Child-Pugh C.",
     duration: "7–14 days.",
     monitoring: "LFTs, nausea/vomiting.",
-    warnings: "Higher mortality in some studies; use cautiously.",
+    warnings: "Higher mortality in some trials.",
     ams: "Restricted salvage therapy.",
     weightBased: false
   },
 
   "Valganciclovir oral": {
+    restricted: true,
     spectrum: "CMV.",
-    dosing: "900 mg PO q12h induction; then 900 mg daily maintenance (adjust by CrCl).",
-    renal: "Strong renal adjustment needed.",
+    dosing: "900 mg PO q12h induction; 900 mg daily maintenance (adjust by CrCl).",
+    renal: "Strong renal adjustment required.",
     hepatic: "Monitor LFTs.",
     duration: "Weeks to months.",
     monitoring: "CBC, renal.",
@@ -250,11 +269,12 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Vancomycin": {
+    restricted: true,
     spectrum: "MRSA, resistant GP.",
-    dosing: "15–20 mg/kg IV q8–12h (AUC-guided dosing).",
+    dosing: "15–20 mg/kg IV q8–12h; AUC-guided dosing preferred.",
     renal: "Adjust by CrCl and AUC levels.",
     hepatic: "No major adjustment.",
-    duration: "Varies widely.",
+    duration: "Varies.",
     monitoring: "AUC/troughs, renal function.",
     warnings: "Red-man syndrome; nephrotoxicity.",
     ams: "Restricted for MRSA/resistant GP only.",
@@ -262,9 +282,10 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Voriconazole": {
+    restricted: true,
     spectrum: "Aspergillus and other molds.",
     dosing: "6 mg/kg IV q12h x 2 doses, then 4 mg/kg q12h (or 200–300 mg PO q12h).",
-    renal: "Avoid IV if CrCl <50 mL/min due to SBECD.",
+    renal: "Avoid IV if CrCl <50 mL/min (SBECD carrier).",
     hepatic: "Reduce maintenance dose in Child-Pugh A/B.",
     duration: "Weeks to months.",
     monitoring: "Drug levels, LFTs, vision changes.",
@@ -274,13 +295,14 @@ const ADULT_MONOGRAPHS = {
   },
 
   // ======================================
-  //             MONITORED ADULT
+  //            MONITORED ADULT
   // ======================================
 
   "Ceftriaxone": {
+    restricted: false,
     spectrum: "Broad Gram-negative, some Gram-positive; no PSA.",
     dosing: "1–2 g IV q24h (up to 4 g/day for severe disease).",
-    renal: "No major adjustment unless combined hepatic+renal failure.",
+    renal: "No major adjustment unless combined hepatic + renal failure.",
     hepatic: "Caution: biliary sludging.",
     duration: "5–10 days typical.",
     monitoring: "LFTs.",
@@ -290,6 +312,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Ceftazidime": {
+    restricted: false,
     spectrum: "Gram-negative including PSA; weaker GP.",
     dosing: "2 g IV q8h.",
     renal: "Adjust if CrCl <50 mL/min.",
@@ -302,6 +325,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Ciprofloxacin": {
+    restricted: false,
     spectrum: "Strong Gram-negative including PSA; atypicals.",
     dosing: "400 mg IV q12h OR 500–750 mg PO q12h.",
     renal: "Adjust if CrCl <50 mL/min.",
@@ -314,6 +338,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Fluconazole": {
+    restricted: false,
     spectrum: "Candida spp. (variable), Cryptococcus.",
     dosing: "400–800 mg IV/PO daily.",
     renal: "Adjust when CrCl <50 mL/min.",
@@ -326,6 +351,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Levofloxacin": {
+    restricted: false,
     spectrum: "Respiratory FQ; Gram-negatives, GP, atypicals.",
     dosing: "500–750 mg IV/PO daily.",
     renal: "Adjust by CrCl.",
@@ -338,6 +364,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Moxifloxacin": {
+    restricted: false,
     spectrum: "Enhanced GP, anaerobes; no PSA.",
     dosing: "400 mg IV/PO daily.",
     renal: "No major adjustment.",
@@ -350,6 +377,7 @@ const ADULT_MONOGRAPHS = {
   },
 
   "Piperacillin–Tazobactam": {
+    restricted: false,
     spectrum: "Broad: GP, GN including PSA, anaerobes.",
     dosing: "4.5 g IV q6–8h; extended infusion preferred.",
     renal: "Adjust when CrCl <40 mL/min.",
